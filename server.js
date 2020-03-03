@@ -34,7 +34,7 @@ app.post("/api/users/add", async (req, res) => {
     if(!dbUser){
       try {
         const hashedPassword = await bcrypt.hash(req.body.password, 10)
-        const user = { name: req.body.name, password: hashedPassword }
+        const user = { name: req.body.name, password: hashedPassword, totalQuizzes: 0 }
         db.User.create(user)
         res.status(201).send("Account created successfully")
       } catch {
@@ -69,6 +69,31 @@ app.post("/api/users/login", async (req, res) =>{
       }
     }
   })
+})
+
+/////////////Quiz/////////////
+app.post("/quiz", (req, res) =>{
+  if(req.body.quiz === "javascript"){
+    db.QsJavascript.aggregate([{ $sample: { size: 5 } }])
+    .then(function(dbJavascript){
+      res.json(dbJavascript)
+    })
+  } else if(req.body.quiz === "python"){
+    db.QsPython.aggregate([{ $sample: { size: 5 } }])
+    .then(function(dbPython){
+      res.json(dbPython)
+    })
+  } else if(req.body.quiz === "c++"){
+    db.QsCplus.aggregate([{ $sample: { size: 5 } }])
+    .then(function(dbCplus){
+      res.json(dbCplus)
+    })
+  } else if(req.body.quiz === "ruby"){
+    db.QsRuby.aggregate([{ $sample: { size: 5 } }])
+    .then(function(dbRuby){
+      res.json(dbRuby)
+    })
+  }
 })
 
 

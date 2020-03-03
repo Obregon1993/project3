@@ -12,6 +12,10 @@ var userSchema = new Schema({
   password: {
     type: String,
     required: true
+  },
+  totalQuizzes: {
+    type: Number,
+    require: true
   }
 });
 

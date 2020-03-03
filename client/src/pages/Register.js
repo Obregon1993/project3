@@ -57,6 +57,7 @@ class Register extends Component {
             return <Redirect to='/'/>
         } else if (this.state.tokenValid === false){
             return(
+                <div className="logWrapper">
                 <form>
                     <h2>Register</h2>
                     <h3>{this.state.validMsg}</h3>
@@ -82,7 +83,7 @@ class Register extends Component {
                     <br />
                     <Link to="/">Go Back</Link>
                 </form>
-                
+                </div>
             )
         } else {
             return null

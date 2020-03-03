@@ -1,0 +1,23 @@
+input {
+    width: 500px;
+    border: 0px;
+    border-bottom: cadetblue solid 2px;
+    border-left: cadetblue solid 2px;
+    outline: none;
+    padding: 5px;
+}
+
+form{
+    grid-column: 2/3;
+}
+
+h2{
+    text-align: center;
+}
+
+
+
+.logWrapper{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}

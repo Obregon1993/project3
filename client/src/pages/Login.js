@@ -54,10 +54,10 @@ class Login extends Component {
 
     render(){
         if(this.state.tokenValid === true){
-            return <Redirect to='/'/>
+            return <Redirect to='/dashboard'/>
         } else if (this.state.tokenValid === false) {
             return(
-                
+                <div className="logWrapper">
                 <form>
                 
                 
@@ -85,7 +85,7 @@ class Login extends Component {
                     <Link to="/">Go Back</Link>
                 
                 </form>
-            
+                </div>
                 
             )
         } else {

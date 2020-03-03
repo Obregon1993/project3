@@ -8,6 +8,9 @@ export default {
     logUser: function(userData) {
         return axios.post("/api/users/login", userData);
     },
+    startQuiz: function(Token) {
+        return axios.post("/quiz", Token);
+    },
     Auth: function(Token) {
         return axios.post("/auth", Token);
     },

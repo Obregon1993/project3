@@ -1,0 +1,78 @@
+body{
+    padding: 0px;
+    margin: 0px;
+    font-family: "arial"
+}
+
+.PageCont{
+    display: grid;
+    grid-template-columns: 1fr 4fr 1fr;
+}
+
+.bg {
+    grid-column: 1/4;
+    grid-row: 1;
+    height: 540px auto;
+    background-image: url("https://madak.com/wp-content/uploads/2018/07/markus-spiske-518966-unsplash.jpg");
+    background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.mainText{
+    grid-row: 1;
+    grid-column: 2/3;
+    color: white;
+    background-color:rgba(0, 0, 0, 0.8);
+    border-radius: 100px;
+    padding: 40px;
+    margin: 50px;
+    margin-top: 100px;
+    margin-bottom: 100px;
+
+}
+
+.mainText > h4 {
+    font-size: 30px;
+}
+.mainText > h5 {
+    font-size: 20px;
+}
+
+.profileWrapper {
+    grid-column: 2/3;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+.profileWrapper >div {
+    grid-row: 2;
+    text-align: center;
+}
+
+.quizWrapper{
+    grid-column: 2/3;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+.quizWrapper > h3 {
+    grid-column: 1/4;
+}
+
+.doingQuiz{
+    grid-column: 2/3;
+}
+
+.question{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.question > p {
+    grid-column: 1/3;
+}
+
+.question > button {
+    padding: 10px;
+}

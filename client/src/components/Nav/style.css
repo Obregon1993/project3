@@ -1,0 +1,45 @@
+
+
+.nav{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    padding: 20px;
+    
+}
+.nav > div:nth-child(1) {
+    font-size: 30px;
+}
+
+.mainLog{
+    display: grid;
+    grid-column: 3/4;
+    grid-template-columns: 1fr 1fr;
+    justify-self: right;
+    align-items: center;
+}
+
+.logs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+   justify-self: right;
+   grid-column: 3/4;
+   align-items: center;
+}
+
+.dashNav{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    justify-self: center;
+    align-items: center;
+    text-align: center;
+    grid-gap: 2em;
+}
+
+#login, #register{
+    text-decoration: none;
+    color: grey;
+}
+#login:hover, #register:hover{
+    
+    color: black
+}

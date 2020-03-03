@@ -1,6 +1,6 @@
 import React, {Component}from "react";
+import {Nav, Login, Register, LogOut, LogName} from "../components/Nav"
 import PageCont from "../components/PageCont"
-import {Nav, Login, LogOut, LogName} from "../components/Nav"
 import API from "../utils/API";
 
 class Main extends Component {
@@ -31,10 +31,15 @@ class Main extends Component {
 
     renderComponents = () => {
         if(this.state.tokenValid === false){
-            return <Login/>
+            return (
+                <div className="mainLog">
+                <Login/>
+                <Register/>
+                </div>
+            )
         } else if(this.state.tokenValid === true){
             return (
-                <div>
+                <div className="mainLog">
                 <LogName>{this.state.userName}</LogName>
                 <LogOut onClick={this.logOut}/>
                 </div>
@@ -48,12 +53,27 @@ class Main extends Component {
 
     render(){
         return(
-        <PageCont>
+        <div>
             <Nav>
-                <h1>Main</h1>
+                <div>SYKYC</div>
                 {this.renderComponents()}
             </Nav>
-        </PageCont>
+            
+            <PageCont>
+                <div className="bg"></div>
+                <div className="mainText">
+                    <h4>Sharpen your coding skills with SYKYC</h4>
+                    <hr/>
+                    <h5>Coding trivia in the industry's leading languages</h5>
+                    <p>Challenge your friends and push coding knowledge to a new level when you sign up for SYKYC</p>
+                </div>
+                <div className="wrapper">
+                    <div className="selections">
+
+                    </div>
+                </div>
+            </PageCont>
+        </div>
             
         )
         
