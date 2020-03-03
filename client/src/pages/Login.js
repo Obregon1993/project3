@@ -1,10 +1,13 @@
 import React, { Component } from "react";
+import {Link} from "react-router-dom"
 
 class Login extends Component {
     render() {
         return (
 
             <div className="container">
+            <Link to="/">Main</Link>
+
                 <div className="row">
                     <div className="col m6">
                         <h2 className="center-align">Login</h2>

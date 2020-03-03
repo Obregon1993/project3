@@ -6,12 +6,12 @@ import Login from "./pages/Login";
 function App() {
   return (
     <Router>
-      <div>
+      
         <Switch>
           <Route exact path="/" component={Main} />
           <Route exact path="/login" component={Login} />
         </Switch>
-      </div>
+      
     </Router>
   );
 }
