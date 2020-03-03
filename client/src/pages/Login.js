@@ -2,6 +2,22 @@ import React, { Component } from "react";
 import {Link} from "react-router-dom"
 
 class Login extends Component {
+
+    state = {
+        nameLog: "",
+        passwordLog: ""
+    }
+
+
+
+    handleInputChange = event => {
+        const { name, value } = event.target;
+        this.setState({
+          [name]: value
+        });
+    };
+
+
     render() {
         return (
 
@@ -16,8 +32,7 @@ class Login extends Component {
 
                             <div className="row">
                                     <div className="input-field col s12">
-                                        <input id="username" type="text" className="validate"></input>
-                                        <label for="username">Username</label>
+                                    
                                     </div>
                                 </div>
 
