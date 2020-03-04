@@ -1,13 +1,17 @@
 import React from "react"
-import {Link} from "react-router-dom"
+import Container from "../components/Container"
+import Navbar from "../components/Navbar"
 
-
-function Main(){
+function Main() {
     return (
         <div>
-            <h1>Main</h1>
-            <Link to="/login">Login</Link>
-
+            <Container />
+            <Navbar />
+            <div className="row">
+                <div className="col s12">
+                    
+                </div>
+            </div>
         </div>
     )
 }

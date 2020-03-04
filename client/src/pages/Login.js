@@ -27,6 +27,20 @@ class Login extends Component {
     }
 
 
+    state = {
+        nameLog: "",
+        passwordLog: ""
+    }
+
+
+
+    handleInputChange = event => {
+        const { name, value } = event.target;
+        this.setState({
+          [name]: value
+        });
+    };
+
 
     render() {
         return (
@@ -44,6 +58,7 @@ class Login extends Component {
                                     <div className="input-field col s12">
                         
                                         <input id="username" type="text" className="validate" name='userName' placeholder="Username" value={this.state.userName}  onChange={this.handleChange}></input>
+                                    
                                     </div>
                                 </div>
 
