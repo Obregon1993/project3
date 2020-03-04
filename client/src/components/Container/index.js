@@ -5,7 +5,7 @@ function Container() {
     return (
 
         <body>
-            <div class="container">
+            <div className="container">
 
             </div>
         </body>
