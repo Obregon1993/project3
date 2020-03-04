@@ -9,8 +9,10 @@ function Main() {
             <Container />
             <Navbar />
             <ParallaxTemp />
-            
-    </div>
+
+        </div>
+
+
     )
 }
 
