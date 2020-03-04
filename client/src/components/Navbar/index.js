@@ -6,7 +6,7 @@ import Newlogo from "./Newlogo.png"
 function Navbar() {
     return (
         <nav>
-            <div className="nav-wrapper grey darken-3">
+            <div className="nav-wrapper black">
                 <div style={{float: 'left', marginTop: '-15px'}}>
                 <Link to="/"><img src={Newlogo} alt="icon" height="100" width="100" className="brand-logo"></img></Link>
                 </div>
