@@ -289,12 +289,16 @@ class Dashboard extends Component {
                                 <div>{this.state.quizTaken}</div>
                             </div>
                         </div>
+                        <hr />
                         <div className="quizWrapper">
                             <h3>Quiz</h3>
                             <button onClick={this.selectQuiz} value="javascript">Javascript</button>
                             <button onClick={this.selectQuiz} value="python">Python</button>
                             <button onClick={this.selectQuiz} value="c++">C++</button>
                             <button onClick={this.selectQuiz} value="ruby">Ruby</button>
+                        </div>
+                        <div className="socialWrapper">
+                            <h3>Social</h3>
                         </div>
                     </PageCont>
                     ): (

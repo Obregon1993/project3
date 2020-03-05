@@ -20,5 +20,5 @@ export function Register() {
 }
 
 export function LogOut(props) {
-    return <button {...props}>Log out</button>
+    return <button style={{borderRadius: "40px", border: "solid red 1px", background: "black", color: "red", marginLeft: "5px" }} id="logout" {...props}>X</button>
 }

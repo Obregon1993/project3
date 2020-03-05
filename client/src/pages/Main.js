@@ -1,6 +1,8 @@
 import React, {Component}from "react";
 import {Nav, Login, Register, LogOut, LogName} from "../components/Nav"
-import PageCont from "../components/PageCont"
+import Newlogo from "../components/Images/Newlogo.png"
+import { Parallax, Background } from 'react-parallax';
+import {Link} from "react-router-dom"
 import API from "../utils/API";
 
 class Main extends Component {
@@ -32,16 +34,18 @@ class Main extends Component {
     renderComponents = () => {
         if(this.state.tokenValid === false){
             return (
-                <div className="mainLog">
-                <Login/>
-                <Register/>
+                <div>
+                <li><Link to="/login" className="red-text text-darken-4"><strong>Login</strong></Link></li>
+                <li><Link to="/register" className="red-text text-darken-4"><strong>Sign Up</strong></Link></li>
+                {/*<Login/>
+                <Register/>*/}
                 </div>
             )
         } else if(this.state.tokenValid === true){
             return (
-                <div className="mainLog">
-                <LogName>{this.state.userName}</LogName>
-                <LogOut onClick={this.logOut}/>
+                <div>
+                <li><LogName>Welcome {this.state.userName}</LogName></li>
+                <li><LogOut onClick={this.logOut}/></li>
                 </div>
             )
         
@@ -54,7 +58,103 @@ class Main extends Component {
     render(){
         return(
         <div>
-            <Nav>
+            <div>
+                <nav>
+                    <div className="nav-wrapper black">
+                        <div style={{ float: 'left', marginTop: '-15px' }}>
+                            <Link to="/"><img src={Newlogo} alt="icon" height="100" width="100" className="brand-logo"></img></Link>
+                        </div>
+                        <ul id="nav-mobile" className="hide-on-med-and-down" style={{ marginLeft: '100px' }}>
+                            {this.renderComponents()}
+                        </ul>
+                        <ul id="nav-mobile" className="right hide-on-med-and-down">
+                            {this.state.tokenValid  ? (
+                                null
+                            ):(
+                                <li><Link to="/login" className="waves-effect waves-light btn-small red darken-4 white-text"><i className="material-icons right">arrow_forward</i>Get Started</Link></li>
+
+                            )}
+                            
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+
+            <Parallax strength={300}>
+            <div style={{ height: '20px' }}></div>
+            <Background className="custom-bg">
+                <img src="https://hdblackwallpaper.com/wallpaper/2015/07/red-and-black-wallpaper-for-computer-10-free-wallpaper.jpg" alt="fill murray" />
+            </Background>
+            </Parallax>
+            <Parallax
+            blur={0}
+            bgImage={require('../components/Images/binary_background.jpg')}
+            bgImageAlt="firstImage"
+            strength={200}
+            >
+            <div style={{ height: '80px' }}></div>
+
+            </Parallax>
+            <Parallax
+            blur={{ min: -15, max: 15 }}
+            bgImage={require('../components/Images/red_background.png')}
+            bgImageAlt="secondImage"
+            strength={-200}
+
+            >
+            <div style={{ height: '300px', marginTop: "50px" }}>
+                <div class="card transparent">
+
+                    <div class="card-content white-text center-align">
+                        <h3>So you know you code?</h3>
+                        <h5>Sharpen your coding skills with <strong>SYKYC</strong></h5>
+                        <h6>Coding quizzes in the industry's leading programming languages.</h6>
+                    </div>
+                    <div class="card-action center-align">
+                        {this.state.tokenValid ? (
+                            <Link to="/dashboard" className="waves-effect waves-light btn-large red darken-4 white-text"><i class="material-icons right">arrow_forward</i>Return to Dashboard</Link>
+                        ):(
+                            <Link to="/login" className="waves-effect waves-light btn-large red darken-4 white-text"><i class="material-icons right">arrow_forward</i>Get Started</Link>
+                        )}
+                    </div>
+
+                </div>
+            </div>
+            </Parallax>
+
+            <Parallax
+            blur={0}
+            bgImage={require('../components/Images/binary_background.jpg')}
+            bgImageAlt="firstImage"
+            strength={200}
+            >
+            <div style={{ height: '80px' }}></div>
+            </Parallax>
+            <Parallax strength={300}>
+                <div style={{ height: '100px' }}></div>
+                <Background className="custom-bg">
+                <img src="https://hdblackwallpaper.com/wallpaper/2015/07/red-and-black-wallpaper-for-computer-10-free-wallpaper.jpg" alt="fill murray" />
+                </Background>
+            </Parallax>
+
+            {/* -----dynamic blur-----*/}
+            <Parallax
+                blur={{ min: -15, max: 15 }}
+                bgImage={require('../components/Images/red_background.png')}
+                bgImageSize={{width:'200px'}}
+                bgImageAlt="secondImage"
+                strength={-200}
+            ></Parallax>
+
+<Parallax strength={300}>
+        <div style={{ height: '50px' }}></div>
+            <Background className="custom-bg">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/5/50/Black_colour.jpg" alt="fill murray" />
+            </Background>
+        </Parallax>
+    
+                
+            {/*<Nav>
                 <div>SYKYC</div>
                 {this.renderComponents()}
             </Nav>
@@ -72,7 +172,7 @@ class Main extends Component {
 
                     </div>
                 </div>
-            </PageCont>
+            </PageCont>*/}
         </div>
             
         )

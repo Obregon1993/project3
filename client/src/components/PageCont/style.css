@@ -1,6 +1,7 @@
 body{
     padding: 0px;
     margin: 0px;
+    height: 100%;
     font-family: "arial"
 }
 
@@ -87,6 +88,10 @@ body{
     grid-column: 2/3;
     grid-template-columns: 1fr 1fr;
     
+}
+
+.socialWrapper {
+    grid-column: 2/3
 }
 
 .resultsCont > button {
