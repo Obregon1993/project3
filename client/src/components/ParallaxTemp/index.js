@@ -1,6 +1,7 @@
 import React from 'react';
 import { Parallax, Background } from 'react-parallax';
 import { Link } from "react-router-dom";
+import html_quiz from "./html_quiz.png"
 
 
 const ParallaxTemp = () => (
@@ -78,11 +79,12 @@ const ParallaxTemp = () => (
             <div style={{ height: '400px', marginTop: "50px" }} >
                 <div class="card transparent">
                     <div class="row">
-                        <div class="card-panel grey darken-2 col m3">
+                        {/* QUIZ CARD 1 */}
+                        <div class="card-panel grey darken-2 col m3" style={{ marginLeft: "20px" }}>
                             <div class="card-image">
-                                <img src="./html_quiz.png" alt="html_quiz"></img>
-                                <span class="card-title">Card Title</span>
+                            <img src={html_quiz} alt="html_image" style={{ marginTop: "20px" }}></img>
                                 <div class="card-content">
+                                    <h5>HTML Quiz</h5>
                                     <p>I am a very simple card. I am good at containing small bits of information. I am convenient because I require little markup to use effectively.</p>
                                 </div>
                                 <div class="card-action">
@@ -90,15 +92,40 @@ const ParallaxTemp = () => (
                                 </div>
 
                             </div>
-
                         </div>
-                    </div>
-                    <div class="col s4">
+
+                        {/* QUIZ CARD 2 */}
+                        <div class="card-panel grey darken-2 col m3" style={{ marginLeft: "20px" }}>
+                            <div class="card-image">
+                            <img src={html_quiz} alt="html_image" style={{ marginTop: "20px" }}></img>
+                                <div class="card-content">
+                                    <h5>HTML Quiz</h5>
+                                    <p>I am a very simple card. I am good at containing small bits of information. I am convenient because I require little markup to use effectively.</p>
+                                </div>
+                                <div class="card-action">
+                                    <a href="http://www.google.com">This is a link</a>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        {/* QUIZ CARD 3 */}
+                        <div class="card-panel grey darken-2 col m3" style={{ marginLeft: "20px" }}>
+                            <div class="card-image">
+                                <img src={html_quiz} alt="html_image" style={{ marginTop: "20px" }}></img>
+                                <div class="card-content">
+                                    <h5>HTML Quiz</h5>
+                                    <p>I am a very simple card. I am good at containing small bits of information. I am convenient because I require little markup to use effectively.</p>
+                                </div>
+                                <div class="card-action">
+                                    <a href="http://www.google.com">This is a link</a>
+                                </div>
+
+                            </div>
+                        </div>
 
                     </div>
-                    <div class="col s4">
 
-                    </div>
 
                 </div>
             </div>
