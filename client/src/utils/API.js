@@ -14,4 +14,7 @@ export default {
     Auth: function(Token) {
         return axios.post("/auth", Token);
     },
+    quizSubmit: function(Token) {
+        return axios.post("/check/quiz", Token);
+    }
 };

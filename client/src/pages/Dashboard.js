@@ -10,6 +10,7 @@ class Dashboard extends Component {
         quizTaken: "",
         tokenValid: null,
         whatQuiz: null,
+        goQuiz: "false",
 
         question1:"",
         answer11: "",
@@ -40,7 +41,48 @@ class Dashboard extends Component {
         answer52: "",
         answer53: "",
         answer54: "",
-        }
+
+        yourAnswer1: "",
+        yourAnswer2: "",    
+        yourAnswer3: "",
+        yourAnswer4: "",
+        yourAnswer5: "",
+
+        displayCorrectQuestion1: "",
+        displayCorrectQuestion2: "",
+        displayCorrectQuestion3: "",
+        displayCorrectQuestion4: "",
+        displayCorrectQuestion5: "",
+
+        displayCorrectAnswer1: "",
+        displayCorrectAnswer2: "",
+        displayCorrectAnswer3: "",
+        displayCorrectAnswer4: "",
+        displayCorrectAnswer5: "",
+
+        displayIncorrectQuestion1: "",
+        displayIncorrectQuestion2: "",
+        displayIncorrectQuestion3: "",
+        displayIncorrectQuestion4: "",
+        displayIncorrectQuestion5: "",
+
+        displayIncorrectAnswer1: "",
+        displayIncorrectAnswer2: "",
+        displayIncorrectAnswer3: "",
+        displayIncorrectAnswer4: "",
+        displayIncorrectAnswer5: "",
+
+        displayCorrectData1: "",
+        displayCorrectData2: "",
+        displayCorrectData3: "",
+        displayCorrectData4: "",
+        displayCorrectData5: ""
+
+        
+
+    }
+
+
 
     componentDidMount = () => {
         let jwt = localStorage.getItem('token')
@@ -51,31 +93,30 @@ class Dashboard extends Component {
             this.setState({tokenValid: true})
             this.setState({userName: res.data.name})
             this.setState({quizTaken: res.data.totalQuizzes})
-
-            console.log(res.data)
           } else {
             this.setState({tokenValid: false})
           }
       })
     }
 
+    
     logOut = () => {
         localStorage.removeItem("token")
         window.location.reload()
     }
 
+
+
+    //Quiz
     selectQuiz = event => {
         let quiz = event.target.value
-        this.setState({goQuiz: true})
+        this.setState({goQuiz: "true"})
         this.setState({whatQuiz: quiz}, this.renderQuiz)
-    
-       
     }
     renderQuiz = () => {
         API.startQuiz({
             quiz: this.state.whatQuiz
         }).then(res =>{
-            console.log(res.data)
             this.setState({
                 question1: res.data[0].question,
                 answer11: res.data[0].option1,
@@ -109,7 +150,67 @@ class Dashboard extends Component {
             })
         })
     }
+    submitQuiz = () => {
+        let jwt = localStorage.getItem('token')
+        API.quizSubmit([
+            this.state.yourAnswer1,
+            this.state.yourAnswer2,
+            this.state.yourAnswer3,
+            this.state.yourAnswer4,
+            this.state.yourAnswer5,
+            this.state.whatQuiz,
+            jwt
+            
+        ]).then(res => {
+            console.log(res.data)
+            this.setState({
+                displayCorrectQuestion1: res.data.correctQuestions[0],
+                displayCorrectQuestion2: res.data.correctQuestions[1],
+                displayCorrectQuestion3: res.data.correctQuestions[2],
+                displayCorrectQuestion4: res.data.correctQuestions[3],
+                displayCorrectQuestion5: res.data.correctQuestions[4],
 
+                displayCorrectAnswer1: res.data.correctAnswers[0],
+                displayCorrectAnswer2: res.data.correctAnswers[1],
+                displayCorrectAnswer3: res.data.correctAnswers[2],
+                displayCorrectAnswer4: res.data.correctAnswers[3],
+                displayCorrectAnswer5: res.data.correctAnswers[4],
+
+                displayIncorrectQuestion1: res.data.incorrectQuestions[0],
+                displayIncorrectQuestion2: res.data.incorrectQuestions[1],
+                displayIncorrectQuestion3: res.data.incorrectQuestions[2],
+                displayIncorrectQuestion4: res.data.incorrectQuestions[3],
+                displayIncorrectQuestion5: res.data.incorrectQuestions[4],
+
+                displayIncorrectAnswer1: res.data.incorrectAnswers[0],
+                displayIncorrectAnswer2: res.data.incorrectAnswers[1],
+                displayIncorrectAnswer3: res.data.incorrectAnswers[2],
+                displayIncorrectAnswer4: res.data.incorrectAnswers[3],
+                displayIncorrectAnswer5: res.data.incorrectAnswers[4],
+
+                displayCorrectData1: res.data.correctAnswersForIncorrect[0],
+                displayCorrectData2: res.data.correctAnswersForIncorrect[1],
+                displayCorrectData3: res.data.correctAnswersForIncorrect[2],
+                displayCorrectData4: res.data.correctAnswersForIncorrect[3],
+                displayCorrectData5: res.data.correctAnswersForIncorrect[4],
+
+
+            })
+        })
+        this.setState({goQuiz: "result"})
+    }
+    checkAnswer = event => {
+        const { name, value } = event.target;
+        this.setState({
+          [name]: value
+        });
+    }
+    finishQuiz = () => {
+        window.location.reload()
+    }
+    ////////////////////////////////////////////
+
+    
     
     
 
@@ -135,50 +236,50 @@ class Dashboard extends Component {
                 </Nav>
                 
                 
-                    {this.state.goQuiz ? (
+                    {this.state.goQuiz === "true" ? (
                     <PageCont>
                         <div className="doingQuiz">
                             <h1>Javascript</h1>
                             <div className="question">
                                 <p>1. {this.state.question1}</p>
-                                <button value={this.state.answer11}>{this.state.answer11}</button>
-                                <button value={this.state.answer12}>{this.state.answer12}</button>
-                                <button value={this.state.answer13}>{this.state.answer13}</button>
-                                <button value={this.state.answer14}>{this.state.answer14}</button>
+                                <button value={this.state.answer11} onClick={this.checkAnswer} name="yourAnswer1">{this.state.answer11}</button>
+                                <button value={this.state.answer12} onClick={this.checkAnswer} name="yourAnswer1">{this.state.answer12}</button>
+                                <button value={this.state.answer13} onClick={this.checkAnswer} name="yourAnswer1">{this.state.answer13}</button>
+                                <button value={this.state.answer14} onClick={this.checkAnswer} name="yourAnswer1">{this.state.answer14}</button>
                             </div>
                             <div className="question">
                                 <p>2. {this.state.question2}</p>
-                                <button value={this.state.answer21}>{this.state.answer21}</button>
-                                <button value={this.state.answer22}>{this.state.answer22}</button>
-                                <button value={this.state.answer23}>{this.state.answer23}</button>
-                                <button value={this.state.answer24}>{this.state.answer24}</button>
+                                <button value={this.state.answer21} onClick={this.checkAnswer} name="yourAnswer2">{this.state.answer21}</button>
+                                <button value={this.state.answer22} onClick={this.checkAnswer} name="yourAnswer2">{this.state.answer22}</button>
+                                <button value={this.state.answer23} onClick={this.checkAnswer} name="yourAnswer2">{this.state.answer23}</button>
+                                <button value={this.state.answer24} onClick={this.checkAnswer} name="yourAnswer2">{this.state.answer24}</button>
                             </div>
                             <div className="question">
                                 <p>3. {this.state.question3}</p>
-                                <button value={this.state.answer31}>{this.state.answer31}</button>
-                                <button value={this.state.answer32}>{this.state.answer32}</button>
-                                <button value={this.state.answer33}>{this.state.answer33}</button>
-                                <button value={this.state.answer34}>{this.state.answer34}</button>
+                                <button value={this.state.answer31} onClick={this.checkAnswer} name="yourAnswer3">{this.state.answer31}</button>
+                                <button value={this.state.answer32} onClick={this.checkAnswer} name="yourAnswer3">{this.state.answer32}</button>
+                                <button value={this.state.answer33} onClick={this.checkAnswer} name="yourAnswer3">{this.state.answer33}</button>
+                                <button value={this.state.answer34} onClick={this.checkAnswer} name="yourAnswer3">{this.state.answer34}</button>
                             </div>
                             <div className="question">
                                 <p>4. {this.state.question4}</p>
-                                <button value={this.state.answer41}>{this.state.answer41}</button>
-                                <button value={this.state.answer42}>{this.state.answer42}</button>
-                                <button value={this.state.answer43}>{this.state.answer43}</button>
-                                <button value={this.state.answer44}>{this.state.answer44}</button>
+                                <button value={this.state.answer41} onClick={this.checkAnswer} name="yourAnswer4">{this.state.answer41}</button>
+                                <button value={this.state.answer42} onClick={this.checkAnswer} name="yourAnswer4">{this.state.answer42}</button>
+                                <button value={this.state.answer43} onClick={this.checkAnswer} name="yourAnswer4">{this.state.answer43}</button>
+                                <button value={this.state.answer44} onClick={this.checkAnswer} name="yourAnswer4">{this.state.answer44}</button>
                             </div>
                             <div className="question">
                                 <p>5. {this.state.question5}</p>
-                                <button value={this.state.answer51}>{this.state.answer51}</button>
-                                <button value={this.state.answer52}>{this.state.answer52}</button>
-                                <button value={this.state.answer53}>{this.state.answer53}</button>
-                                <button value={this.state.answer54}>{this.state.answer54}</button>
+                                <button value={this.state.answer51} onClick={this.checkAnswer} name="yourAnswer5">{this.state.answer51}</button>
+                                <button value={this.state.answer52} onClick={this.checkAnswer} name="yourAnswer5">{this.state.answer52}</button>
+                                <button value={this.state.answer53} onClick={this.checkAnswer} name="yourAnswer5">{this.state.answer53}</button>
+                                <button value={this.state.answer54} onClick={this.checkAnswer} name="yourAnswer5">{this.state.answer54}</button>
                             </div>
-                            <button onclick={this.submitQuiz}>Submit</button>
+                            <button onClick={this.submitQuiz}>Submit</button>
                         </div>
 
                     </PageCont>
-                    ):(
+                    ):(this.state.goQuiz === "false" ? (
 
                     <PageCont>
                         <div className="profileWrapper">
@@ -196,7 +297,50 @@ class Dashboard extends Component {
                             <button onClick={this.selectQuiz} value="ruby">Ruby</button>
                         </div>
                     </PageCont>
-                    )}
+                    ): (
+                        <PageCont>
+                            <div className="resultsCont">
+                                <div className="contForRes">
+                                    <p style={{color: "green"}}>{this.state.displayCorrectQuestion1}</p>
+                                    <p style={{textDecoration: "underline", textDecorationColor: "green"}}>{this.state.displayCorrectAnswer1}</p>
+                                    
+                                    <p style={{color: "green"}}>{this.state.displayCorrectQuestion2}</p>
+                                    <p style={{textDecoration: "underline", textDecorationColor: "green"}}>{this.state.displayCorrectAnswer2}</p>
+                                    
+                                    <p style={{color: "green"}}>{this.state.displayCorrectQuestion3}</p>
+                                    <p style={{textDecoration: "underline", textDecorationColor: "green"}}>{this.state.displayCorrectAnswer3}</p>
+                                    
+                                    <p style={{color: "green"}}>{this.state.displayCorrectQuestion4}</p>
+                                    <p style={{textDecoration: "underline", textDecorationColor: "green"}}>{this.state.displayCorrectAnswer4}</p>
+                                    
+                                    <p style={{color: "green"}}>{this.state.displayCorrectQuestion5}</p>
+                                    <p style={{textDecoration: "underline", textDecorationColor: "green"}}>{this.state.displayCorrectAnswer5}</p>
+                                </div>
+                                <div className="contForRes">
+                                    <p style={{color: "red"}}>{this.state.displayIncorrectQuestion1}</p>
+                                    <p style={{textDecoration: "underline", textDecorationColor: "red"}}>{this.state.displayIncorrectAnswer1}</p>
+                                    <p style={{textDecoration: "underline", textDecorationColor: "green"}}>{this.state.displayCorrectData1}</p>
+                                    
+                                    <p style={{color: "red"}}>{this.state.displayIncorrectQuestion2}</p>
+                                    <p style={{textDecoration: "underline", textDecorationColor: "red"}}>{this.state.displayIncorrectAnswer2}</p>
+                                    <p style={{textDecoration: "underline", textDecorationColor: "green"}}>{this.state.displayCorrectData2}</p>
+                                    
+                                    <p style={{color: "red"}}>{this.state.displayIncorrectQuestion3}</p>
+                                    <p style={{textDecoration: "underline", textDecorationColor: "red"}}>{this.state.displayIncorrectAnswer3}</p>
+                                    <p style={{textDecoration: "underline", textDecorationColor: "green"}}>{this.state.displayCorrectData3}</p>
+                                    
+                                    <p style={{color: "red"}}>{this.state.displayIncorrectQuestion4}</p>
+                                    <p style={{textDecoration: "underline", textDecorationColor: "red"}}>{this.state.displayIncorrectAnswer4}</p>
+                                    <p style={{textDecoration: "underline", textDecorationColor: "green"}}>{this.state.displayCorrectData4}</p>
+                                    
+                                    <p style={{color: "red"}}>{this.state.displayIncorrectQuestion5}</p>
+                                    <p style={{textDecoration: "underline", textDecorationColor: "red"}}>{this.state.displayIncorrectAnswer5}</p>
+                                    <p style={{textDecoration: "underline", textDecorationColor: "green"}}>{this.state.displayCorrectData5}</p>
+                                </div>
+                                <button onClick={this.finishQuiz}>Finish</button>
+                            </div>
+                        </PageCont>
+                    ))}
                 
             </div>
             
