@@ -1,7 +1,7 @@
 import React from 'react';
 import { Parallax, Background } from 'react-parallax';
 import { Link } from "react-router-dom";
-import html_quiz from "./html_quiz.png"
+import html_quiz from "./assets/html_quiz.png"
 
 
 const ParallaxTemp = () => (
@@ -17,7 +17,7 @@ const ParallaxTemp = () => (
         {/* -----basic config-----*/}
         <Parallax
             blur={0}
-            bgImage={require('./binary_background.jpg')}
+            bgImage={require('./assets/binary_background.jpg')}
             bgImageAlt="firstImage"
             strength={200}
         >
@@ -28,7 +28,7 @@ const ParallaxTemp = () => (
         {/* -----dynamic blur-----*/}
         <Parallax
             blur={{ min: -15, max: 15 }}
-            bgImage={require('./red_background.png')}
+            bgImage={require('./assets/red_background.png')}
             bgImageAlt="secondImage"
             strength={-200}
 
@@ -37,7 +37,7 @@ const ParallaxTemp = () => (
                 <div class="card transparent">
 
                     <div class="card-content white-text center-align">
-                        <h3 class="">So you know you code?</h3>
+                        <h3>So you know you code?</h3>
                         <h5>Sharpen your coding skills with <strong>SYKYC</strong></h5>
                         <h6>Coding quizzes in the industry's leading programming languages.</h6>
                     </div>
@@ -51,7 +51,7 @@ const ParallaxTemp = () => (
 
         <Parallax
             blur={0}
-            bgImage={require('./binary_background.jpg')}
+            bgImage={require('./assets/binary_background.jpg')}
             bgImageAlt="firstImage"
             strength={200}
         >
@@ -70,13 +70,13 @@ const ParallaxTemp = () => (
         {/* -----dynamic blur-----*/}
         <Parallax
             blur={{ min: -15, max: 15 }}
-            bgImage={require('./red_background.png')}
+            bgImage={require('./assets/red_background.png')}
             bgImageSize={{width:'200px'}}
             bgImageAlt="secondImage"
             strength={-200}
         >
 
-            <div style={{ height: '400px', marginTop: "50px" }} >
+            <div style={{ height: '500px', marginTop: "50px" }} >
                 <div class="card transparent">
                     <div class="row">
                         {/* QUIZ CARD 1 */}
