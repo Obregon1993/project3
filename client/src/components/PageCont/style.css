@@ -91,7 +91,35 @@ body{
 }
 
 .socialWrapper {
-    grid-column: 2/3
+    grid-column: 2/3;
+}
+
+.personFilter {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    justify-self: center;
+    text-align: center;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+.personFiltername{
+    grid-column: 1/4;
+    text-align: left;
+    font-weight: bold;
+}
+.titlesFilter{
+    border: solid #bebebe 1px;
+}
+
+#selectFilter {
+    grid-column: 1/4;
+}
+#filterMessage{
+    text-align: center;
+    font-size: 40px;
+    font-weight: bold;
+    margin-top: 50px;
+    margin-bottom: 50px;
 }
 
 .resultsCont > button {

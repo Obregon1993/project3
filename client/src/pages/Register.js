@@ -8,6 +8,7 @@ class Register extends Component {
     state = {
         nameRes: "",
         passwordRes: "",
+        teteRes: "",
         validMsg: "",
         tokenValid: null
     }
@@ -38,14 +39,14 @@ class Register extends Component {
 
     handleFormRegister = event => {
         event.preventDefault();
-        if (this.state.nameRes && this.state.passwordRes){
+        if (this.state.nameRes && this.state.teteRes){
             API.addUser({
-                name: this.state.nameRes,
-                password: this.state.passwordRes
+                name: this.state.nameRes.toLocaleLowerCase(),
+                tete: this.state.teteRes
             }).then(res => {
                 this.setState({ validMsg: res.data})
-            }).catch(err => console.log(err));
-            this.setState({ nameRes: "", passwordRes: ""})
+            }).catch(err => console.log(err.message));
+            this.setState({ nameRes: "", teteRes: ""})
         } else {
             alert("Name and Password is Require")
         }
@@ -72,9 +73,9 @@ class Register extends Component {
                     />
                     <label>Password</label>
                     <Input
-                        value={this.state.passwordRes}
+                        value={this.state.teteRes}
                         onChange={this.handleInputChange}
-                        name="passwordRes"
+                        name="teteRes"
                         type="password"
                     />
                     <Submit

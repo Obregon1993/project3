@@ -37,7 +37,7 @@ class Login extends Component {
         event.preventDefault();
         if (this.state.nameLog && this.state.passwordLog){
             API.logUser({
-                name: this.state.nameLog,
+                name: this.state.nameLog.toLocaleLowerCase(),
                 password: this.state.passwordLog,
             }).then(res => {
                 if(typeof res.data === 'object'){

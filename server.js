@@ -34,7 +34,7 @@ app.post("/api/users/add", async (req, res) => {
   }).then(async function(dbUser) {
     if(!dbUser){
       try {
-        const hashedPassword = await bcrypt.hash(req.body.password, 10)
+        const hashedPassword = await bcrypt.hash(req.body.tete, 10)
         const user = { name: req.body.name, password: hashedPassword, totalQuizzes: 0, totalPoints: 0, bestRecord: 70 }
         db.User.create(user)
         res.status(201).send("Account created successfully")
@@ -74,7 +74,7 @@ app.post("/api/users/login", async (req, res) =>{
 
 let currentQuiz = {
   currentAnswers: [],
-  currentQuestions: []
+  currentQuestions: [],
 }
 
 /////////////Quiz/////////////
@@ -192,6 +192,31 @@ app.post("/check/quiz", authenticateToke, (req, res)=>{
   }
 
   res.send(results)
+})
+
+//Social Filter
+
+app.post("/filter", (req, res)=>{
+  console.log(req.body)
+  if(req.body.filter === "quizzesTaken"){
+    db.User.find().sort({
+      totalQuizzes: -1
+    }).then(function(dbUser){
+      res.send(dbUser)
+    })
+  } else if (req.body.filter === "points"){
+    db.User.find().sort({
+      totalPoints: -1
+    }).then(function(dbUser){
+      res.send(dbUser)
+    })
+  } else if (req.body.filter === "bestTime"){
+    db.User.find().sort({
+      bestRecord: 1
+    }).then(function(dbUser){
+      res.send(dbUser)
+    })
+  }
 })
 
 

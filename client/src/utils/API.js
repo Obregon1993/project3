@@ -16,5 +16,8 @@ export default {
     },
     quizSubmit: function(Token) {
         return axios.post("/check/quiz", Token);
+    },
+    searchFilter: function(filter) {
+        return axios.post("/filter", filter);
     }
 };

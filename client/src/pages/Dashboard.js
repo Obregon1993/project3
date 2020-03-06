@@ -3,6 +3,9 @@ import {Nav, LogOut, LogName} from "../components/Nav"
 import { Link, Redirect } from "react-router-dom";
 import API from "../utils/API";
 import PageCont from "../components/PageCont";
+import Select from 'react-select';
+
+
 
 class Dashboard extends Component {
     state = {
@@ -77,11 +80,15 @@ class Dashboard extends Component {
         displayCorrectData4: "",
         displayCorrectData5: "",
 
+
         timeForQuiz: 60,
 
         quizTaken: "",
         totalPoints: "",
-        bestRecord: ""
+        bestRecord: "",
+
+        selectedOption: null,
+        peopleFilter: []
         
 
     }
@@ -138,7 +145,6 @@ class Dashboard extends Component {
             if(this.state.timeForQuiz > 0){
             time = time - 1
             this.setState({timeForQuiz: time})
-            console.log(this.state.timeForQuiz)
             
             } else {
                 clearInterval(window.timer)
@@ -180,6 +186,7 @@ class Dashboard extends Component {
                 answer53: res.data[4].option3,
                 answer54: res.data[4].option4,
             })
+            console.log(this.state.questions)
         })
     }
     submitQuiz = () => {
@@ -244,8 +251,18 @@ class Dashboard extends Component {
     }
     ////////////////////////////////////////////
 
-    
-    
+    handleOptionChange = selectedOption => {
+        this.setState({ selectedOption });
+        this.searchFilter(selectedOption.value)
+      };
+    searchFilter = value => {
+        API.searchFilter({
+            filter: value
+        }).then(res => {
+            this.setState({peopleFilter: res.data})
+            console.log(this.state.peopleFilter)
+        })
+    }
     
 
     render(){
@@ -330,7 +347,7 @@ class Dashboard extends Component {
                                 <div>{this.state.totalPoints}</div>
                             </div>
                             <div>
-                                <div>Best Record</div>
+                                <div>Best Time</div>
                                 <div>{this.state.bestRecord}</div>
                             </div>
                         </div>
@@ -343,7 +360,41 @@ class Dashboard extends Component {
                             <button onClick={this.selectQuiz} value="ruby">Ruby</button>
                         </div>
                         <div className="socialWrapper">
-                            <h3>Social</h3>
+                            <h3>LeaderBoard</h3>
+                            <Select id="selectFilter"
+                               options={[
+                                { value: 'quizzesTaken', label: 'Quizzes taken' },
+                                { value: 'points', label: 'Points' },
+                                { value: 'bestTime', label: 'bestTime' },
+                                ]}
+                               isSearchable={false}
+                               placeholder="filter by"
+                               value={this.state.selectedOption}
+                                onChange={this.handleOptionChange}
+                            />
+                            {this.state.peopleFilter.length ? (
+                            <div>
+                            {this.state.peopleFilter.slice(0, 5).map(person => (
+                                <div key={person._id} className="personFilter">
+                                    <div className="personFiltername">{person.name}</div>
+                                    <div className="titlesFilter">
+                                        <div>Quizzes taken</div>
+                                        <div>{person.totalQuizzes}</div>
+                                    </div>
+                                    <div className="titlesFilter">
+                                        <div>Total Points</div>
+                                        <div>{person.totalPoints}</div>
+                                    </div>
+                                    <div className="titlesFilter">
+                                        <div>Best Time</div>
+                                        <div>{person.bestRecord == "70" ? ("No record"):(person.bestRecord)}</div>
+                                    </div>
+                                </div>
+                            ))}
+                            </div>
+                            ):(
+                                <div id="filterMessage">Select a filter</div>
+                            )}
                         </div>
                     </PageCont>
                     ): (
