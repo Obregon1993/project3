@@ -2,9 +2,8 @@ import React, { Component } from "react";
 import 'materialize-css/dist/css/materialize.min.css';
 import './style.css';
 import M from "materialize-css";
-//import image1 from "./assets/7595_-_Questioning_Skills-512.png";
-import image1 from "../ParallaxTemp/assets/ruby_quiz.png";
-import image2 from "../ParallaxTemp/assets/red_background.png";
+import image1 from "../ParallaxTemp/assets/Questioning_Skills-512.png";
+import image2 from "../ParallaxTemp/assets/matrix-code-animation-gif-free-animated-background.gif";
 
 
 
@@ -21,12 +20,14 @@ class Sidenav extends Component {
 
     let instance = M.Sidenav.getInstance(this.Sidenav);
     instance.open();
+    
+    
     console.log(instance.isOpen);
     }
     render() {
         return (
         <>
-        <ul
+        <ul 
             ref={Sidenav => {
             this.Sidenav = Sidenav;
             }}
@@ -34,53 +35,73 @@ class Sidenav extends Component {
             className="sidenav"
         >
             <li>
-            <div className="user-view">
+            <div className="user-view z-depth-4">
                 <div className="background">
-                <img src={image1} alt="ABC" ></img>
+                <img src={image2} alt="ABC" ></img>
                 </div>
                 <a href="#user">
-                <img className="circle" src={image1} alt="DEF"></img>
+                <img className="circle z-depth-1" src={image1} alt="DEF"></img>
                 </a>
                 <a href="#name">
-                <span className="white-text name">John Doe</span>
+                <span className="white-text name">Username</span>
                 </a>
-                <a href="#email">
-                <span className="white-text email">jdandturk@gmail.com</span>
+                <a href="mailto: sykyc@gmail.com">
+                <span className="white-text email">sykyc@gmail.com</span>
                 </a>
             </div>
             </li>
-            <li><h6>Profile</h6></li>
+
             <li>
-                <i className="material-icons">check</i>Total Score:<span>0</span>
+                <h6 className="myProfile"><i class="fas fa-user"></i> Profile</h6>
             </li>
-            <li><h6>Resources</h6></li>
             <li>
-            <a href="www.w3school.com" target="_blank">W3School</a>
+                <h6 className="h6">Total Wins:</h6><span id="TotalWins"></span>
+            </li>
+            <li>
+                <h6 className="h6">Total Lost:</h6><span id="TotalLost"></span>
+            </li>
+            <div className="divider" />
+            <li><h6 className="myProfile">Resources</h6></li>
+            <li>
+            <a href="https://www.w3school.com/" target="_blank" rel="w3school"><i class="fas fa-laptop-code"></i>W3School</a>
+            </li>
+            <li>
+            <a href="https://www.stackoverflow.com" target="_blank" rel="stockoverflow"><i class="fas fa-file-code"></i>Stock Over Flow</a>
+            </li>
+            <li>
+            <a href="https://www.codeacademy.com" target="_blank" rel="codeacademy"><i class="fas fa-code"></i>Code Academy</a>
+            </li>
+            <li>
+            <a href="https://www.github.com" target="_blank" rel="github"><i class="fab fa-github"></i>Github</a>
             </li>
             <li>
             <div className="divider" />
             </li>
             <li>
-            <a className="subheader">Subheader</a>
+            <a href="https://www.codepen.com" target="_blank" rel="codepen"><i class="fas fa-users"></i>Peer Challenge </a>
+            </li>
+            <div className="divider" />
+            <li>
+                <a className="waves-effect" href="../../">
+                <i class="fas fa-home"></i>Home</a>
             </li>
             <li>
-            <a className="waves-effect" href="#!">
-                Third Link With Waves
-            </a>
+                <a className="waves-effect" href="../../">
+                <i className="fas fa-sign-out-alt"></i>Log out</a>
             </li>
-        </ul>
-        <a href="#!" data-target="slide-out" className="sidenav-trigger">
-            <i className="material-icons">menu</i>
-        </a>
-        </>
-    );
-    }
+            </ul>
+
+            <div className="fixed-action-btn">
+            <a className="btn-floating btn-large pulse z-depth-3 green accent-4">
+            <i className="large material-icons sidenav-trigger " data-target="slide-out">arrow_forward</i>
+            </a>
+            </div>
+            </>
+            
     
+        );
+        
+    } 
 }
-// const styles = {
-//     headingText: {
-//     fontSize: 50,
-//     fontWeight: 300,
-//     }
-// };
-export default Sidenav;
+
+    export default Sidenav;

@@ -12,6 +12,26 @@ footer {
         padding-left: 0;
     }
 }
-h6{
+.background{
+    width: 324px;
+    height: 243;
+}
+.h6{
+    text-align: left;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-weight: bolder;
+    text-decoration-line: none;
+    margin-left: 25px;
+    
+}
+a{
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-weight: bolder;
+    text-decoration-line: none;
+}
+.myProfile{
     text-align: center;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-weight: bolder;
+    text-decoration-line: none;
 }
