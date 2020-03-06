@@ -12,6 +12,7 @@ class Login extends Component {
     }
 
     componentDidMount = () => {
+        document.body.style.backgroundColor = "white"
         let jwt = localStorage.getItem('token')
       API.Auth({
         token: jwt

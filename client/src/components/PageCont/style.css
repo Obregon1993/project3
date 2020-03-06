@@ -2,7 +2,7 @@ body{
     padding: 0px;
     margin: 0px;
     height: 100%;
-    font-family: "arial"
+    font-family: "arial";
 }
 
 .PageCont{
@@ -100,4 +100,14 @@ body{
 
 .contForRes{
     justify-self: center;
+}
+
+.titleQuiz{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.titleQuiz > h5 {
+    align-self: center;
+    justify-self: right;
 }

@@ -14,6 +14,7 @@ class Register extends Component {
 
 
     componentDidMount = () => {
+        document.body.style.backgroundColor = "white"
         let jwt = localStorage.getItem('token')
       API.Auth({
         token: jwt
@@ -54,7 +55,7 @@ class Register extends Component {
 
     render(){
         if(this.state.tokenValid === true){
-            return <Redirect to='/'/>
+            return <Redirect to='/dashboard'/>
         } else if (this.state.tokenValid === false){
             return(
                 <div className="logWrapper">

@@ -40,10 +40,6 @@
     color: grey;
 }
 #login:hover, #register:hover{
-    
     color: black
 }
 
-.logout {
-    color: cadetblue;
-}

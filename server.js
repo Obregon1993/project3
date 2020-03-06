@@ -19,6 +19,7 @@ if (process.env.NODE_ENV === "production") {
 }
 
 mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/reactLogs");
+mongoose.set('useFindAndModify', false);
 
 
 
@@ -34,7 +35,7 @@ app.post("/api/users/add", async (req, res) => {
     if(!dbUser){
       try {
         const hashedPassword = await bcrypt.hash(req.body.password, 10)
-        const user = { name: req.body.name, password: hashedPassword, totalQuizzes: 0 }
+        const user = { name: req.body.name, password: hashedPassword, totalQuizzes: 0, totalPoints: 0, bestRecord: 70 }
         db.User.create(user)
         res.status(201).send("Account created successfully")
       } catch {
@@ -128,31 +129,58 @@ app.post("/quiz", (req, res) =>{
 //Check Quiz
 app.post("/check/quiz", authenticateToke, (req, res)=>{
 
-
+  
   let correctQuestions = []
   let incorrectQuestions = []
   let correctAnswers = []
   let incorrectAnswers = []
   let correctAnswersForIncorrect = []
+  let Points = 0
+  let yourTime = 71
+  console.log(req.body[7])
   for(let i=0; i<=4; i++){
     if(req.body[i] === currentQuiz.currentAnswers[i]){
       correctQuestions.push(currentQuiz.currentQuestions[i])
       correctAnswers.push(currentQuiz.currentAnswers[i])
+      Points = Points + 15
+      if(correctAnswers.length === 4){
+        console.log(correctAnswers.length)
+        yourTime = 60 - req.body[7]
+      }
+      
     } else if (req.body[i] !== currentQuiz.currentAnswers[i]){
       incorrectQuestions.push(currentQuiz.currentQuestions[i])
       correctAnswersForIncorrect.push(currentQuiz.currentAnswers[i])
       incorrectAnswers.push(req.body[i])
+      Points = Points - 12
     }
   }
 
   
 
-  db.User.update( 
+  db.User.findOneAndUpdate( 
     {name: req.user.name },
-    {$inc: { totalQuizzes: 1 }},
+    {$inc: { totalQuizzes: 1, totalPoints: Points }}
+  
+    
   ).then(function(dbUser){
-    console.log(dbUser)
+    //console.log(yourTime)
+    if(yourTime < dbUser.bestRecord){
+      updateTime()
+    } else {
+      return
+    }
   })
+
+  updateTime = () => {
+    db.User.findOneAndUpdate( 
+      {name: req.user.name },
+      {bestRecord: yourTime}
+    ).then(function(dbUser){
+      console.log(dbUser)
+    })
+  }
+ 
 
   let results = {
     correctQuestions: correctQuestions,
@@ -160,6 +188,7 @@ app.post("/check/quiz", authenticateToke, (req, res)=>{
     incorrectQuestions: incorrectQuestions,
     incorrectAnswers: incorrectAnswers,
     correctAnswersForIncorrect: correctAnswersForIncorrect,
+    
   }
 
   res.send(results)

@@ -7,7 +7,6 @@ import PageCont from "../components/PageCont";
 class Dashboard extends Component {
     state = {
         userName: "",
-        quizTaken: "",
         tokenValid: null,
         whatQuiz: null,
         goQuiz: "false",
@@ -76,8 +75,13 @@ class Dashboard extends Component {
         displayCorrectData2: "",
         displayCorrectData3: "",
         displayCorrectData4: "",
-        displayCorrectData5: ""
+        displayCorrectData5: "",
 
+        timeForQuiz: 60,
+
+        quizTaken: "",
+        totalPoints: "",
+        bestRecord: ""
         
 
     }
@@ -85,14 +89,29 @@ class Dashboard extends Component {
 
 
     componentDidMount = () => {
+        document.body.style.backgroundColor = "white"
         let jwt = localStorage.getItem('token')
       API.Auth({
         token: jwt
       }).then(res => {
+          console.log(res.data)
           if(res.data !== "notLogin"){
             this.setState({tokenValid: true})
-            this.setState({userName: res.data.name})
-            this.setState({quizTaken: res.data.totalQuizzes})
+            this.setState({
+                userName: res.data.name,
+                quizTaken: res.data.totalQuizzes,
+                totalPoints: res.data.totalPoints,
+                
+            })
+
+            if(res.data.bestRecord === 70){
+                this.setState({bestRecord: "Pass a quiz"})
+            } else {
+                this.setState({bestRecord: res.data.bestRecord})
+            }
+            
+            
+            
           } else {
             this.setState({tokenValid: false})
           }
@@ -114,6 +133,19 @@ class Dashboard extends Component {
         this.setState({whatQuiz: quiz}, this.renderQuiz)
     }
     renderQuiz = () => {
+        let time = 60
+        window.timer = setInterval(function(){
+            if(this.state.timeForQuiz > 0){
+            time = time - 1
+            this.setState({timeForQuiz: time})
+            console.log(this.state.timeForQuiz)
+            
+            } else {
+                clearInterval(window.timer)
+                this.submitQuiz()
+            }
+            
+        }.bind(this), 1000)
         API.startQuiz({
             quiz: this.state.whatQuiz
         }).then(res =>{
@@ -151,15 +183,17 @@ class Dashboard extends Component {
         })
     }
     submitQuiz = () => {
+        clearInterval(window.timer)
         let jwt = localStorage.getItem('token')
         API.quizSubmit([
-            this.state.yourAnswer1,
-            this.state.yourAnswer2,
-            this.state.yourAnswer3,
-            this.state.yourAnswer4,
-            this.state.yourAnswer5,
+            this.state.yourAnswer1 || "incorrect",
+            this.state.yourAnswer2 || "incorrect",
+            this.state.yourAnswer3 || "incorrect",
+            this.state.yourAnswer4 || "incorrect",
+            this.state.yourAnswer5 || "incorrect",
             this.state.whatQuiz,
-            jwt
+            jwt,
+            this.state.timeForQuiz,
             
         ]).then(res => {
             console.log(res.data)
@@ -239,7 +273,10 @@ class Dashboard extends Component {
                     {this.state.goQuiz === "true" ? (
                     <PageCont>
                         <div className="doingQuiz">
-                            <h1>Javascript</h1>
+                            <div className = "titleQuiz">
+                                <h1>{this.state.whatQuiz}</h1>
+                                <h5>time: {this.state.timeForQuiz}</h5>
+                            </div>
                             <div className="question">
                                 <p>1. {this.state.question1}</p>
                                 <button value={this.state.answer11} onClick={this.checkAnswer} name="yourAnswer1">{this.state.answer11}</button>
@@ -287,6 +324,14 @@ class Dashboard extends Component {
                             <div>
                                 <div>Quizzes taken</div>
                                 <div>{this.state.quizTaken}</div>
+                            </div>
+                            <div>
+                                <div>Total Points</div>
+                                <div>{this.state.totalPoints}</div>
+                            </div>
+                            <div>
+                                <div>Best Record</div>
+                                <div>{this.state.bestRecord}</div>
                             </div>
                         </div>
                         <hr />

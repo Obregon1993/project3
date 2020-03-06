@@ -1,5 +1,5 @@
 import React, {Component}from "react";
-import {Nav, Login, Register, LogOut, LogName} from "../components/Nav"
+import {LogOut, LogName} from "../components/Nav"
 import Newlogo from "../components/Images/Newlogo.png"
 import { Parallax, Background } from 'react-parallax';
 import {Link} from "react-router-dom"
@@ -10,8 +10,10 @@ class Main extends Component {
         userName: "",
         tokenValid: null
     }
+    
 
     componentDidMount = () => {
+        document.body.style.backgroundColor = "black"
         let jwt = localStorage.getItem('token')
       API.Auth({
         token: jwt
@@ -105,7 +107,7 @@ class Main extends Component {
             <div style={{ height: '300px', marginTop: "50px" }}>
                 <div class="card transparent">
 
-                    <div class="card-content white-text center-align">
+                    <div className="card-content white-text center-align">
                         <h3>So you know you code?</h3>
                         <h5>Sharpen your coding skills with <strong>SYKYC</strong></h5>
                         <h6>Coding quizzes in the industry's leading programming languages.</h6>
@@ -145,13 +147,6 @@ class Main extends Component {
                 bgImageAlt="secondImage"
                 strength={-200}
             ></Parallax>
-
-<Parallax strength={300}>
-        <div style={{ height: '50px' }}></div>
-            <Background className="custom-bg">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/5/50/Black_colour.jpg" alt="fill murray" />
-            </Background>
-        </Parallax>
     
                 
             {/*<Nav>

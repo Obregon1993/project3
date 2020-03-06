@@ -16,6 +16,14 @@ var userSchema = new Schema({
   totalQuizzes: {
     type: Number,
     require: true
+  },
+  totalPoints: {
+    type: Number,
+    require: true
+  },
+  bestRecord: {
+    type: Number,
+    require: true
   }
 });
 
