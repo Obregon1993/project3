@@ -88,7 +88,10 @@ class Dashboard extends Component {
         bestRecord: "",
 
         selectedOption: null,
-        peopleFilter: []
+        peopleFilter: [],
+
+        history: [],
+        historyToggle: false
         
 
     }
@@ -123,6 +126,12 @@ class Dashboard extends Component {
             this.setState({tokenValid: false})
           }
       })
+        API.showHistory({
+            token: jwt
+        }).then(res=>{
+            this.setState({history: res.data})
+            console.log(this.state.history)
+        })
     }
 
     
@@ -263,6 +272,16 @@ class Dashboard extends Component {
             console.log(this.state.peopleFilter)
         })
     }
+
+    toggleHistoty = () => {
+        if(this.state.historyToggle === false){
+            this.setState({historyToggle: true})
+        } else if(this.state.historyToggle === true){
+            this.setState({historyToggle: false})
+        } 
+    }
+    
+    
     
 
     render(){
@@ -274,9 +293,9 @@ class Dashboard extends Component {
                 <Nav>
                     <div>SYKYC</div>
                     <div className="dashNav">
-                        <button onClick={this.grabvalue} >Social</button>
-                        <button onClick={this.renderSelect} >Quiz</button>
-                        <button onClick={this.renderSelect}>Profile</button>
+                        <a  href="#social">Social</a>
+                        <a href="#quiz">Quiz</a>
+                        <a href="#profile">Profile</a>
                     </div>
 
                     <div className="logs">
@@ -336,7 +355,7 @@ class Dashboard extends Component {
                     ):(this.state.goQuiz === "false" ? (
 
                     <PageCont>
-                        <div className="profileWrapper">
+                        <div id="profile" className="profileWrapper">
                             <h3>Profile</h3>
                             <div>
                                 <div>Quizzes taken</div>
@@ -348,18 +367,52 @@ class Dashboard extends Component {
                             </div>
                             <div>
                                 <div>Best Time</div>
-                                <div>{this.state.bestRecord}</div>
+                                <div>{this.state.bestRecord}s</div>
                             </div>
+                        <button onClick={this.toggleHistoty}>{this.state.historyToggle ? ("⇧"):("⇩")}</button>
                         </div>
+                            {this.state.historyToggle == false ? (
+                               null
+                            ):this.state.historyToggle == true ? (
+                                this.state.history == "No history" ? (
+                                    <div>No history</div>
+                                ):this.state.history.length ? (
+                                    this.state.history.map(quiz =>(
+                                    <div key={quiz._id} className="myHistory">
+                                        <div>
+                                            <div>{quiz.date}</div>
+                                            <div>{quiz.title}</div>
+                                        </div>
+                                        <div>
+                                            <div>Correct answers</div>
+                                            <div>{quiz.correctAnswers}</div>
+                                        </div>
+                                        <div>
+                                            <div>Incorrect answers</div>
+                                            <div>{quiz.incorrectAnswers}</div>
+                                        </div>
+                                        <div>
+                                            <div>Time</div>
+                                            <div>{quiz.time}s</div>
+                                        </div>
+                                    </div>
+                                    ))
+                                ):(
+                                    null
+                                )
+                            ):(
+                                null
+                            )}
+                        
                         <hr />
-                        <div className="quizWrapper">
+                        <div id="quiz" className="quizWrapper">
                             <h3>Quiz</h3>
                             <button onClick={this.selectQuiz} value="javascript">Javascript</button>
                             <button onClick={this.selectQuiz} value="python">Python</button>
                             <button onClick={this.selectQuiz} value="c++">C++</button>
                             <button onClick={this.selectQuiz} value="ruby">Ruby</button>
                         </div>
-                        <div className="socialWrapper">
+                        <div id="social" className="socialWrapper">
                             <h3>LeaderBoard</h3>
                             <Select id="selectFilter"
                                options={[

@@ -46,11 +46,30 @@ body{
     grid-template-columns: 1fr 1fr 1fr;
 }
 
+.profileWrapper > h3 {
+    grid-column: 1/4;
+}
+
+.profileWrapper > button {
+    grid-column: 1/4;
+}
+
 .profileWrapper >div {
     grid-row: 2;
     text-align: center;
 }
 
+.myHistory{
+    margin-top: 20px;
+    display: grid;
+    grid-column: 2/3;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    text-align: center;
+}
+
+.myHistory >div{
+    border: solid #bebebe 1px
+}
 .quizWrapper{
     grid-column: 2/3;
     display: grid;

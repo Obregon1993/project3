@@ -1,5 +1,6 @@
 module.exports = {
     User: require("./User"),
+    History: require("./History"),
 
     //questions
     QsJavascript: require("./QsJavascript"),

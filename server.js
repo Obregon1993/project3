@@ -136,15 +136,19 @@ app.post("/check/quiz", authenticateToke, (req, res)=>{
   let incorrectAnswers = []
   let correctAnswersForIncorrect = []
   let Points = 0
+  let CrNumber = 0
+  let IcNumber = 0
   let yourTime = 71
-  console.log(req.body[7])
+  let answersToSave = {}
+  console.log(req.body)
   for(let i=0; i<=4; i++){
     if(req.body[i] === currentQuiz.currentAnswers[i]){
       correctQuestions.push(currentQuiz.currentQuestions[i])
       correctAnswers.push(currentQuiz.currentAnswers[i])
       Points = Points + 15
+      CrNumber = CrNumber + 1
+      answersToSave.correct = CrNumber
       if(correctAnswers.length === 4){
-        console.log(correctAnswers.length)
         yourTime = 60 - req.body[7]
       }
       
@@ -153,10 +157,12 @@ app.post("/check/quiz", authenticateToke, (req, res)=>{
       correctAnswersForIncorrect.push(currentQuiz.currentAnswers[i])
       incorrectAnswers.push(req.body[i])
       Points = Points - 12
+      IcNumber = IcNumber + 1
+      answersToSave.incorrect = IcNumber
     }
   }
 
-  
+  console.log(answersToSave)
 
   db.User.findOneAndUpdate( 
     {name: req.user.name },
@@ -180,6 +186,18 @@ app.post("/check/quiz", authenticateToke, (req, res)=>{
       console.log(dbUser)
     })
   }
+
+  let timeToSave = 60 - req.body[7]
+
+  let toSave = {
+    user: req.user.name,
+    title: req.body[5],
+    date: Date.now(),
+    correctAnswers: answersToSave.correct || 0,
+    incorrectAnswers: answersToSave.incorrect || 0,
+    time: timeToSave
+  }
+  db.History.create(toSave)
  
 
   let results = {
@@ -217,6 +235,22 @@ app.post("/filter", (req, res)=>{
       res.send(dbUser)
     })
   }
+})
+
+app.post("/user/history", authenticateToke, (req, res)=>{
+  console.log(req.body.token)
+  console.log(req.user.name)
+  db.History.find({user: req.user.name}).sort({
+    date: -1
+  }).then(function(dbHistory){
+    console.log(dbHistory)
+    if(!dbHistory.length){
+      res.send("No history")
+      
+    } else {
+      res.send(dbHistory)
+    }
+  })
 })
 
 

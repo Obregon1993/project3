@@ -19,5 +19,8 @@ export default {
     },
     searchFilter: function(filter) {
         return axios.post("/filter", filter);
+    },
+    showHistory: function(history) {
+        return axios.post("/user/history", history);
     }
 };
