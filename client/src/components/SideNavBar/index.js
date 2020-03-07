@@ -63,7 +63,7 @@ class Sidenav extends Component {
             <div className="divider" />
             <li><h6 className="myProfile">Resources</h6></li>
             <li>
-            <a href="https://www.w3school.com/" target="_blank" rel="w3school"><i class="fas fa-laptop-code"></i>W3School</a>
+            <a href="https://www.w3schools.com" target="_blank" rel="w3school"><i class="fas fa-laptop-code"></i>w3schools</a>
             </li>
             <li>
             <a href="https://www.stackoverflow.com" target="_blank" rel="stockoverflow"><i class="fas fa-file-code"></i>Stock Over Flow</a>
@@ -78,7 +78,7 @@ class Sidenav extends Component {
             <div className="divider" />
             </li>
             <li>
-            <a href="https://www.codepen.com" target="_blank" rel="codepen"><i class="fas fa-users"></i>Peer Challenge </a>
+            <a href="https://www.codepen.com" target="_blank" rel="codepen"><i class="fas fa-users"></i>Peers Challenge </a>
             </li>
             <div className="divider" />
             <li>

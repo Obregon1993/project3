@@ -7,6 +7,8 @@ import BackgroundImg from "../ParallaxTemp/assets/web-4841858_1280.jpg";
 
 
 
+
+
 class QuizSection extends Component {
     
 

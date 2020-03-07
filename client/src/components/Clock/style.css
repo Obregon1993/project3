@@ -1,0 +1,27 @@
+@import url('https://fonts.googleapis.com/css?family=Orbitron');
+
+
+body {
+    color: white;
+}
+
+.time {
+    margin-top: .1em;
+    text-align: center;
+    font-family: orbitron;
+
+}
+
+p {
+    display: inline;
+    font-size: .5em;
+}
+
+@media all and (max-width: 600px) {
+
+    .time {
+        left: 10%;
+        font-size: 60px;
+    }
+
+}
