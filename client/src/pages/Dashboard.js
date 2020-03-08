@@ -4,6 +4,9 @@ import { Link, Redirect } from "react-router-dom";
 import API from "../utils/API";
 import PageCont from "../components/PageCont";
 import Select from 'react-select';
+import Sidenav from "../components/SideNavBar"
+
+
 
 
 
@@ -91,15 +94,17 @@ class Dashboard extends Component {
         peopleFilter: [],
 
         history: [],
-        historyToggle: false
-        
+        historyToggle: false, 
+
+        profile: true,
+        quiz: false,
+        social: false
 
     }
 
 
 
     componentDidMount = () => {
-        document.body.style.backgroundColor = "white"
         let jwt = localStorage.getItem('token')
       API.Auth({
         token: jwt
@@ -280,8 +285,19 @@ class Dashboard extends Component {
             this.setState({historyToggle: false})
         } 
     }
-    
-    
+
+    runAlert = value => {
+        if(value === "profile"){
+            this.setState({quiz: false,social: false})
+            this.setState({profile: true})
+        } else if (value === "quiz"){
+            this.setState({profile: false, social: false})
+            this.setState({quiz: true})
+        } else if (value === "social"){
+            this.setState({profile: false, quiz: false})
+            this.setState({social: true})
+        }
+    }
     
 
     render(){
@@ -290,7 +306,16 @@ class Dashboard extends Component {
         } else if (this.state.tokenValid === true){
         return(
             <div>
-                <Nav>
+                <Sidenav
+                name={this.state.userName}
+                quizzesTaken={this.state.quizTaken}
+                totalPoints={this.state.totalPoints}
+                bestTime={this.state.bestRecord}
+                onClick={this.runAlert}
+                doingQuiz={this.state.goQuiz}
+                />
+                
+                {/*<Nav>
                     <div>SYKYC</div>
                     <div className="dashNav">
                         <a  href="#social">Social</a>
@@ -303,7 +328,7 @@ class Dashboard extends Component {
                         <LogOut onClick={this.logOut}/>
                     </div>
 
-                </Nav>
+                </Nav>*/}
                 
                 
                     {this.state.goQuiz === "true" ? (
@@ -355,6 +380,8 @@ class Dashboard extends Component {
                     ):(this.state.goQuiz === "false" ? (
 
                     <PageCont>
+                        {this.state.profile == true ?(
+                        <div>
                         <div id="profile" className="profileWrapper">
                             <h3>Profile</h3>
                             <div>
@@ -369,8 +396,9 @@ class Dashboard extends Component {
                                 <div>Best Time</div>
                                 <div>{this.state.bestRecord}s</div>
                             </div>
-                        <button onClick={this.toggleHistoty}>{this.state.historyToggle ? ("⇧"):("⇩")}</button>
+                            <button onClick={this.toggleHistoty}>{this.state.historyToggle ? ("⇧"):("⇩")}</button>
                         </div>
+                        <div>
                             {this.state.historyToggle == false ? (
                                null
                             ):this.state.historyToggle == true ? (
@@ -396,6 +424,7 @@ class Dashboard extends Component {
                                             <div>{quiz.time}s</div>
                                         </div>
                                     </div>
+                                    
                                     ))
                                 ):(
                                     null
@@ -403,8 +432,10 @@ class Dashboard extends Component {
                             ):(
                                 null
                             )}
+                        </div>
+                        </div>
                         
-                        <hr />
+                        ):this.state.quiz == true ? (
                         <div id="quiz" className="quizWrapper">
                             <h3>Quiz</h3>
                             <button onClick={this.selectQuiz} value="javascript">Javascript</button>
@@ -412,6 +443,7 @@ class Dashboard extends Component {
                             <button onClick={this.selectQuiz} value="c++">C++</button>
                             <button onClick={this.selectQuiz} value="ruby">Ruby</button>
                         </div>
+                        ):this.state.social == true ? (
                         <div id="social" className="socialWrapper">
                             <h3>LeaderBoard</h3>
                             <Select id="selectFilter"
@@ -427,7 +459,7 @@ class Dashboard extends Component {
                             />
                             {this.state.peopleFilter.length ? (
                             <div>
-                            {this.state.peopleFilter.slice(0, 5).map(person => (
+                            {this.state.peopleFilter.map(person => (
                                 <div key={person._id} className="personFilter">
                                     <div className="personFiltername">{person.name}</div>
                                     <div className="titlesFilter">
@@ -449,6 +481,9 @@ class Dashboard extends Component {
                                 <div id="filterMessage">Select a filter</div>
                             )}
                         </div>
+                        ):(
+                            null
+                        )}
                     </PageCont>
                     ): (
                         <PageCont>
