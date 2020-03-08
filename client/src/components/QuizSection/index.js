@@ -7,6 +7,8 @@ import BackgroundImg from "../ParallaxTemp/assets/web-4841858_1280.jpg";
 
 
 
+
+
 class QuizSection extends Component {
     
 
@@ -14,8 +16,8 @@ class QuizSection extends Component {
         return(
 
 <>
+<img className="background-img" src={BackgroundImg} alt="DEF"></img>
     
-    <img className="background-img" src={BackgroundImg} alt="DEF"></img>
     </>
         
         );

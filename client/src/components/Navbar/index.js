@@ -1,6 +1,6 @@
 import React from "react"
 import { Link } from "react-router-dom"
-import Newlogo from "./Newlogo.png"
+import Newlogo from "../ParallaxTemp/assets/Red_SYKYK-Logo.png"
 // import LoginModal from "../LoginModal"
 
 
@@ -22,8 +22,8 @@ class Navbar extends React.Component {
             <div>
                 <nav>
                     <div className="nav-wrapper black">
-                        <div style={{ float: 'left', marginTop: '-15px' }}>
-                            <Link to="/"><img src={Newlogo} alt="icon" height="100" width="100" className="brand-logo"></img></Link>
+                        <div style={{ }}>
+                            <Link to="/"><img src={Newlogo} alt="icon" height="60" width="140" className="brand-logo center"></img></Link>
                         </div>
                         <ul id="nav-mobile" className="hide-on-med-and-down" style={{ marginLeft: '100px' }}>
 

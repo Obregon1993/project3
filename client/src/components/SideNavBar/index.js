@@ -4,6 +4,12 @@ import './style.css';
 import M from "materialize-css";
 import image1 from "../ParallaxTemp/assets/Questioning_Skills-512.png";
 import image2 from "../ParallaxTemp/assets/matrix-code-animation-gif-free-animated-background.gif";
+import Newlogo from "../ParallaxTemp/assets/Green_SYKYC-Logo.png";
+import { Link } from "react-router-dom";
+
+
+
+
 
 
 
@@ -27,6 +33,7 @@ class Sidenav extends Component {
     render() {
         return (
         <>
+        
         <ul 
             ref={Sidenav => {
             this.Sidenav = Sidenav;
@@ -45,12 +52,14 @@ class Sidenav extends Component {
                 <a href="#name">
                 <span className="white-text name">Username</span>
                 </a>
-                <a href="mailto: sykyc@gmail.com">
-                <span className="white-text email">sykyc@gmail.com</span>
+                <a href="mailto: example@gmail.com">
+                <span className="white-text email">example@gmail.com</span>
                 </a>
             </div>
             </li>
-
+            <div style={{ }}>
+                            <Link to="/"><img src={Newlogo} alt="logo" height="60" width="140" className="brand-logo"></img></Link>
+                        </div>
             <li>
                 <h6 className="myProfile"><i class="fas fa-user"></i> Profile</h6>
             </li>
@@ -63,7 +72,7 @@ class Sidenav extends Component {
             <div className="divider" />
             <li><h6 className="myProfile">Resources</h6></li>
             <li>
-            <a href="https://www.w3school.com/" target="_blank" rel="w3school"><i class="fas fa-laptop-code"></i>W3School</a>
+            <a href="https://www.w3schools.com" target="_blank" rel="w3school"><i class="fas fa-laptop-code"></i>w3schools</a>
             </li>
             <li>
             <a href="https://www.stackoverflow.com" target="_blank" rel="stockoverflow"><i class="fas fa-file-code"></i>Stock Over Flow</a>
@@ -78,7 +87,7 @@ class Sidenav extends Component {
             <div className="divider" />
             </li>
             <li>
-            <a href="https://www.codepen.com" target="_blank" rel="codepen"><i class="fas fa-users"></i>Peer Challenge </a>
+            <a href="https://www.codepen.com" target="_blank" rel="codepen"><i class="fas fa-users"></i>Peers Challenge </a>
             </li>
             <div className="divider" />
             <li>
