@@ -16,8 +16,8 @@ class QuizSection extends Component {
         return(
 
 <>
+<img className="background-img" src={BackgroundImg} alt="DEF"></img>
     
-    <img className="background-img" src={BackgroundImg} alt="DEF"></img>
     </>
         
         );
