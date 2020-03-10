@@ -33,6 +33,7 @@
     "mongoose": "^5.3.16",
     "react": "^16.13.0",
     "react-bootstrap": "^1.0.0-beta.17",
+    "react-favicon": "0.0.17",
     "react-parallax": "^3.0.3"
   }
 }
