@@ -1,6 +1,4 @@
-import React, { Component } from "react";
-import {Link} from "react-router-dom"
-import 
+import React from "react"
 
 
 class Login extends Component {
