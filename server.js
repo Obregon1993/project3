@@ -1,5 +1,6 @@
 require('dotenv').config()
 
+const morgan = require('morgan');
 const express = require("express");
 const bcrypt = require("bcrypt")
 const mongoose = require("mongoose");
@@ -290,7 +291,7 @@ function SaveToMongo(){
   //db.QsRuby.insertMany(Ruby)
 }
 
-
+app.use(morgan('tiny'));
 
 
 app.listen(PORT, function() {
