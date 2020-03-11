@@ -24,6 +24,18 @@ var userSchema = new Schema({
   bestRecord: {
     type: Number,
     require: true
+  },
+  quizzesPass: {
+    type: Number,
+    require: true
+  },
+  quizzesFail: {
+    type: Number,
+    require: true
+  },
+  correctXincorrect: {
+    type: Number,
+    require: true
   }
 });
 

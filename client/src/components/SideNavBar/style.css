@@ -35,3 +35,7 @@ a{
     font-weight: bolder;
     text-decoration-line: none;
 }
+
+#username {
+    padding-bottom: 10px;
+}
