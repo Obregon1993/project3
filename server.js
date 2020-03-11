@@ -4,7 +4,6 @@ const express = require("express");
 const bcrypt = require("bcrypt")
 const mongoose = require("mongoose");
 const jwt = require("jsonwebtoken")
-var moment = require('moment');
 
 var db = require("./models");
 
@@ -77,6 +76,8 @@ let currentQuiz = {
   currentAnswers: [],
   currentQuestions: [],
 }
+
+//QuestionsPool.aggregate([{$match:{lenguage:lenguage}},{$sample:{size:5}}])
 
 /////////////Quiz/////////////
 app.post("/quiz", (req, res) =>{
@@ -321,10 +322,10 @@ let cplus = require("./scripts/C++DB")
 let Ruby = require("./scripts/RubyDB")
 
 function SaveToMongo(){
-  //db.QsJavascript.insertMany(javascript)
-  //db.QsPython.insertMany(Python)
-  //db.QsCplus.insertMany(cplus)
-  //db.QsRuby.insertMany(Ruby)
+  db.QsJavascript.insertMany(javascript)
+  db.QsPython.insertMany(Python)
+  db.QsCplus.insertMany(cplus)
+  db.QsRuby.insertMany(Ruby)
 }
 
 

@@ -417,7 +417,7 @@ class Dashboard extends Component {
                                     this.state.history.map(quiz =>(
                                         
                                     <div key={quiz._id} className="myHistory">
-                                        <div class="dateHis strong">{quiz.date}</div>
+                                        <div class="dateHis">{quiz.date}</div>
                                         <div>
                                             <div>{quiz.title}</div>
                                         </div>
