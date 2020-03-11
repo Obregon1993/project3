@@ -13,7 +13,10 @@ var historySchema = new Schema({
     type: String,
     required: true
   },
-  date: { type: Date, default: Date.now },
+  date: { 
+    type: String, 
+    require: true
+  },
   correctAnswers: {
     type: Number,
     require: true

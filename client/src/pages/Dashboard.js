@@ -9,7 +9,6 @@ import Sidenav from "../components/SideNavBar"
 
 
 
-
 class Dashboard extends Component {
     state = {
         userName: "",
@@ -89,12 +88,14 @@ class Dashboard extends Component {
         quizTaken: "",
         totalPoints: "",
         bestRecord: "",
+        correctXincorrect: "",
+        quizzesPass: "",
+        quizzesFail: "",
 
         selectedOption: null,
         peopleFilter: [],
 
         history: [],
-        historyToggle: false, 
 
         profile: true,
         quiz: false,
@@ -105,6 +106,7 @@ class Dashboard extends Component {
 
 
     componentDidMount = () => {
+        document.body.style.background = "url('https://lh3.googleusercontent.com/LCoBx4Jsuog7p27jdzh_HJ7bZnbhLdHRY-59iIf9ZguW2uoiYRk_q3rZlpXRuqLrH7dW6rbKQQCPd40w70znd4rx23JzkIxHFvwz3fxFLsZkazFU39st5BXTB5d5ldKtmRgbuRYNS7PdYtmxTGlUyRRPzDfztlD2OFYxo24djnHJ1yNV5hCsNvSLF0E5A6JW2X-1Y0fia1oIRd8kQHr41RS5LANeOjORIWPY8qPeXl1hgc_CssIHJtGimM9qZl_gdH53w_ioTw-anwkhLhPUiRQnr_7eADHwzkvoBTIKAXFq6bSeXzHmQqNfmjNngttMbdXQfIo6J0IK9eoUJLnR7EmkTTkMu7RyBEHkjF0kDJnpdtXSZscCOisUdT7YVHt2U4q334Ev9AcVm4nSngBnPRIIG8cr-APHg1NbPuyCdaAcGoJwWy3cKpZDYRKUw4Vlu_W6Up92gxtj7ZXBdqRGyUSUYwuwMsTwodYjoCYZk16kI6ykLP4Ik3HKxhkwD91Y_l3cK4HNwjRTKXIfrl-4KrB7-tcxARfGEab84BO4l-tfP0CtrWfKoGDjFkicDw-b5r-ku4YA8zEY0QxVaCyUyS_e8seQufsIzXvNIvk6_KLkcX0bbkgQO2MEfpWmqdv6SGNEYmasnkQmSFlmA3I7w98n4CCjxK5MQpavThs5-yIKTBow4ExfkYw=w1280-h853-no')"
         let jwt = localStorage.getItem('token')
       API.Auth({
         token: jwt
@@ -116,6 +118,9 @@ class Dashboard extends Component {
                 userName: res.data.name,
                 quizTaken: res.data.totalQuizzes,
                 totalPoints: res.data.totalPoints,
+                correctXincorrect: res.data.correctXincorrect,
+                quizzesPass: res.data.quizzesPass,
+                quizzesFail: res.data.quizzesFail
                 
             })
 
@@ -278,13 +283,7 @@ class Dashboard extends Component {
         })
     }
 
-    toggleHistoty = () => {
-        if(this.state.historyToggle === false){
-            this.setState({historyToggle: true})
-        } else if(this.state.historyToggle === true){
-            this.setState({historyToggle: false})
-        } 
-    }
+    
 
     runAlert = value => {
         if(value === "profile"){
@@ -384,31 +383,42 @@ class Dashboard extends Component {
                         <div>
                         <div id="profile" className="profileWrapper">
                             <h3>Profile</h3>
+                            <h5>Stats</h5>
                             <div>
-                                <div>Quizzes taken</div>
+                                <div className="strong">Quizzes taken</div>
                                 <div>{this.state.quizTaken}</div>
                             </div>
                             <div>
-                                <div>Total Points</div>
+                                <div className="strong">Total Points</div>
                                 <div>{this.state.totalPoints}</div>
                             </div>
                             <div>
-                                <div>Best Time</div>
-                                <div>{this.state.bestRecord}s</div>
+                                <div className="strong">Best Time</div>
+                                <div>{this.state.bestRecord === "Pass a quiz" ? "Pass a quiz":`${this.state.bestRecord}s`}</div>
                             </div>
-                            <button onClick={this.toggleHistoty}>{this.state.historyToggle ? ("⇧"):("⇩")}</button>
+                            <div id="cXi">
+                                <div className="strong">C/I </div>
+                                <div>{this.state.correctXincorrect}</div>
+                            </div>
+                            <div id="QP">
+                                <div className="strong">Quizzes pass</div>
+                                <div>{this.state.quizzesPass}</div>
+                            </div>
+                            <div id="QF">
+                                <div className="strong">Quizzes fail</div>
+                                <div>{this.state.quizzesFail}</div>
+                            </div>
                         </div>
                         <div>
-                            {this.state.historyToggle == false ? (
-                               null
-                            ):this.state.historyToggle == true ? (
-                                this.state.history == "No history" ? (
+                            <h5>History</h5>
+                                {this.state.history == "No history" ? (
                                     <div>No history</div>
                                 ):this.state.history.length ? (
                                     this.state.history.map(quiz =>(
+                                        
                                     <div key={quiz._id} className="myHistory">
+                                        <div class="dateHis strong">{quiz.date}</div>
                                         <div>
-                                            <div>{quiz.date}</div>
                                             <div>{quiz.title}</div>
                                         </div>
                                         <div>
@@ -428,10 +438,7 @@ class Dashboard extends Component {
                                     ))
                                 ):(
                                     null
-                                )
-                            ):(
-                                null
-                            )}
+                               )}
                         </div>
                         </div>
                         
@@ -472,7 +479,7 @@ class Dashboard extends Component {
                                     </div>
                                     <div className="titlesFilter">
                                         <div>Best Time</div>
-                                        <div>{person.bestRecord == "70" ? ("No record"):(person.bestRecord)}</div>
+                                        <div>{person.bestRecord == "70" ? ("No record"):(`${person.bestRecord}s`)}</div>
                                     </div>
                                 </div>
                             ))}

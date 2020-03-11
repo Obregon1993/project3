@@ -55,7 +55,7 @@ class Sidenav extends Component {
                 <img className="circle z-depth-1" src={image1} alt="DEF"></img>
                 </a>
                 <a href="#name">
-                <span className="white-text name">{this.props.name}</span>
+                <span className="white-text name" id="username">{this.props.name}</span>
                 </a>
             </div>
             </li>

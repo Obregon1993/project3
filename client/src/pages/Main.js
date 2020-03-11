@@ -13,6 +13,7 @@ class Main extends Component {
     
 
     componentDidMount = () => {
+        document.body.style.backgroundImage = "url('#')"
         document.body.style.backgroundColor = "black"
         let jwt = localStorage.getItem('token')
       API.Auth({
@@ -114,7 +115,7 @@ class Main extends Component {
                     </div>
                     <div class="card-action center-align">
                         {this.state.tokenValid ? (
-                            <Link to="/dashboard" className="waves-effect waves-light btn-large red darken-4 white-text"><i class="material-icons right">arrow_forward</i>Return to Dashboard</Link>
+                            <Link to="/dashboard"  className="waves-effect waves-light btn-large red darken-4 white-text"><i class="material-icons right">arrow_forward</i>Return to Dashboard</Link>
                         ):(
                             <Link to="/login" className="waves-effect waves-light btn-large red darken-4 white-text"><i class="material-icons right">arrow_forward</i>Get Started</Link>
                         )}

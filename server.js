@@ -4,6 +4,7 @@ const express = require("express");
 const bcrypt = require("bcrypt")
 const mongoose = require("mongoose");
 const jwt = require("jsonwebtoken")
+var moment = require('moment');
 
 var db = require("./models");
 
@@ -35,7 +36,7 @@ app.post("/api/users/add", async (req, res) => {
     if(!dbUser){
       try {
         const hashedPassword = await bcrypt.hash(req.body.tete, 10)
-        const user = { name: req.body.name, password: hashedPassword, totalQuizzes: 0, totalPoints: 0, bestRecord: 70 }
+        const user = { name: req.body.name, password: hashedPassword, totalQuizzes: 0, totalPoints: 0, bestRecord: 70, quizzesPass: 0, quizzesFail: 0, correctXincorrect: 0}
         db.User.create(user)
         res.status(201).send("Account created successfully")
       } catch {
@@ -140,7 +141,8 @@ app.post("/check/quiz", authenticateToke, (req, res)=>{
   let IcNumber = 0
   let yourTime = 71
   let answersToSave = {}
-  console.log(req.body)
+  let passOrFail = ""
+  //console.log(req.body)
   for(let i=0; i<=4; i++){
     if(req.body[i] === currentQuiz.currentAnswers[i]){
       correctQuestions.push(currentQuiz.currentQuestions[i])
@@ -148,8 +150,9 @@ app.post("/check/quiz", authenticateToke, (req, res)=>{
       Points = Points + 15
       CrNumber = CrNumber + 1
       answersToSave.correct = CrNumber
-      if(correctAnswers.length === 4){
+      if(correctAnswers.length === 5){
         yourTime = 60 - req.body[7]
+        passOrFail = "pass"
       }
       
     } else if (req.body[i] !== currentQuiz.currentAnswers[i]){
@@ -159,18 +162,44 @@ app.post("/check/quiz", authenticateToke, (req, res)=>{
       Points = Points - 12
       IcNumber = IcNumber + 1
       answersToSave.incorrect = IcNumber
+      if(incorrectAnswers.length === 5){
+        passOrFail = "fail"
+      }
     }
   }
 
-  console.log(answersToSave)
+  //console.log(answersToSave)
+
+  
+    if(passOrFail === "pass"){
+      db.User.findOneAndUpdate( 
+        {name: req.user.name },
+        {$inc: {quizzesPass: 1 }}
+      
+        
+      ).then(function(dbUser){
+        console.log(dbUser)
+      })
+    }
+    if(passOrFail === "fail"){
+      db.User.findOneAndUpdate( 
+        {name: req.user.name },
+        {$inc: {quizzesFail: 1 }}
+      
+        
+      ).then(function(dbUser){
+        console.log(dbUser)
+      })
+    }
+  
 
   db.User.findOneAndUpdate( 
     {name: req.user.name },
-    {$inc: { totalQuizzes: 1, totalPoints: Points }}
+    {$inc: { totalQuizzes: 1, totalPoints: Points, correctXincorrect: CrNumber - IcNumber }}
   
     
   ).then(function(dbUser){
-    //console.log(yourTime)
+    console.log(yourTime)
     if(yourTime < dbUser.bestRecord){
       updateTime()
     } else {
@@ -183,16 +212,24 @@ app.post("/check/quiz", authenticateToke, (req, res)=>{
       {name: req.user.name },
       {bestRecord: yourTime}
     ).then(function(dbUser){
-      console.log(dbUser)
+      //console.log(dbUser)
     })
   }
 
+  
   let timeToSave = 60 - req.body[7]
+  
+  var today = new Date();
+var date = (today.getMonth()+1)+'/'+today.getDate()+'/'+today.getFullYear();
+var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+  /*let day =  String(today).substr(8, 9);
+  let year =  String(today).substr(0, 4);*/
+  
 
   let toSave = {
     user: req.user.name,
     title: req.body[5],
-    date: Date.now(),
+    date: date + ' ' + time,
     correctAnswers: answersToSave.correct || 0,
     incorrectAnswers: answersToSave.incorrect || 0,
     time: timeToSave
@@ -215,7 +252,7 @@ app.post("/check/quiz", authenticateToke, (req, res)=>{
 //Social Filter
 
 app.post("/filter", (req, res)=>{
-  console.log(req.body)
+  //console.log(req.body)
   if(req.body.filter === "quizzesTaken"){
     db.User.find().sort({
       totalQuizzes: -1
@@ -238,12 +275,12 @@ app.post("/filter", (req, res)=>{
 })
 
 app.post("/user/history", authenticateToke, (req, res)=>{
-  console.log(req.body.token)
-  console.log(req.user.name)
+  //console.log(req.body.token)
+  //console.log(req.user.name)
   db.History.find({user: req.user.name}).sort({
     date: -1
   }).then(function(dbHistory){
-    console.log(dbHistory)
+    //console.log(dbHistory)
     if(!dbHistory.length){
       res.send("No history")
       
