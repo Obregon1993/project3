@@ -1,3 +1,10 @@
 module.exports = {
-  Book: require("./book")
+    User: require("./User"),
+    History: require("./History"),
+
+    //questions
+    QsJavascript: require("./QsJavascript"),
+    QsPython: require("./QsPython"),
+    QsCplus: require("./QsC++"),
+    QsRuby: require("./QsRuby")
 };

@@ -1,0 +1,41 @@
+header,
+main,
+footer {
+    padding-left: 300px;
+}
+
+@media only screen and (max-width : 992px) {
+
+    header,
+    main,
+    footer {
+        padding-left: 0;
+    }
+}
+.background{
+    width: 324px;
+    height: 243;
+}
+.h6{
+    text-align: left;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-weight: bolder;
+    text-decoration-line: none;
+    margin-left: 25px;
+    
+}
+a{
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-weight: bolder;
+    text-decoration-line: none;
+}
+.myProfile{
+    text-align: center;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-weight: bolder;
+    text-decoration-line: none;
+}
+
+#username {
+    padding-bottom: 10px;
+}
