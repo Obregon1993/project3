@@ -1,7 +1,18 @@
-import React, { Component } from "react"
-import axios from "axios"
-import { Link } from "react-router-dom"
+import React, { Component } from "react";
+import { Link } from "react-router-dom";
+import Navbar from "../components/Navbar";
+import Container from "../components/Container";
 
+
+function login(){
+    return (
+        <div>
+            <Navbar/>
+            <Container/>
+
+        </div>
+    )
+}
 
 
 
@@ -25,10 +36,8 @@ class Login extends Component {
         // const payload ={userName: userName, email: email, password:password}
         const payload = { userName, email, password }
 
-        axios.post("/ourLoginApi", payload).then((res) => {
-            console.log(res)
-        })
-    }
+        
+        }
 
 
     state = {
