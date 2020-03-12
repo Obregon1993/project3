@@ -1,7 +1,8 @@
 import React from 'react';
 import { Parallax, Background } from 'react-parallax';
 import { Link } from "react-router-dom";
-import html_quiz from "./assets/html_quiz.png"
+import html_quiz from "./assets/html_quiz.png";
+// import Carousel from "../Carousel";
 
 
 const ParallaxTemp = () => (
@@ -139,6 +140,7 @@ const ParallaxTemp = () => (
             </Background>
         </Parallax>
 
+        {/* <Carousel /> */}
 
         </div>
 
