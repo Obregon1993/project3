@@ -174,6 +174,7 @@ class Dashboard extends Component {
         API.startQuiz({
             quiz: this.state.whatQuiz
         }).then(res =>{
+            //
             this.setState({
                 question1: res.data[0].question,
                 answer11: res.data[0].option1,
