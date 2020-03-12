@@ -113,7 +113,7 @@ class Dashboard extends Component {
       }).then(res => {
           console.log(res.data)
           if(res.data !== "notLogin"){
-            this.setState({tokenValid: true})
+            //this.setState({tokenValid: true})
             this.setState({
                 userName: res.data.name,
                 quizTaken: res.data.totalQuizzes,
