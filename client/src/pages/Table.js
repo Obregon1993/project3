@@ -9,10 +9,12 @@ import ScoreTable from '../components/ScoreTable'
 
 class Table extends Component{
     state={
-        usersArray:[]
+        usersArray:API.topUsers()
     }
 componentDidMount=()=>{
-//this.setState({usersArray:API.topUsers()})
+
+
+
 }
 renderComponents = () => {
    
@@ -79,7 +81,7 @@ return (
             <div style={{ height: '300px', marginTop: "50px" }}>
                 <div class="card transparent">
 
-                    <ScoreTable/>
+                    <ScoreTable usersArray={this.state.usersArray}/>
                     
                 </div>
             </div>
