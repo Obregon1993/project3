@@ -34,8 +34,13 @@
     "mongoose": "^5.3.16",
     "react": "^16.13.0",
     "react-bootstrap": "^1.0.0-beta.17",
+<<<<<<< HEAD
     "react-materialize": "^3.5.9",
     "react-parallax": "^3.0.3",
     "react-swipeable-views": "^0.13.9"
+=======
+    "react-favicon": "0.0.17",
+    "react-parallax": "^3.0.3"
+>>>>>>> 9f1b3765b8d0f18ffd02339e831505e2c771470c
   }
 }

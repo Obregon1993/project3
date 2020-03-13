@@ -1,6 +1,7 @@
 import React, { Component } from "react";
-import {Link} from "react-router-dom"
-import axios from 'axios'
+import {Link} from "react-router-dom";
+
+
 
 class Login extends Component {
     state ={
@@ -22,9 +23,6 @@ class Login extends Component {
         // const payload ={userName: userName, email: email, password:password}
         const payload ={userName, email, password}
 
-        axios.post("/ourLoginApi", payload).then((res)=>{
-            console.log(res)
-        })
     }
 
 
@@ -38,7 +36,7 @@ class Login extends Component {
     handleInputChange = event => {
         const { name, value } = event.target;
         this.setState({
-          [name]: value
+        [name]: value
         });
     };
 
