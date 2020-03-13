@@ -293,7 +293,17 @@ app.post("/user/history", authenticateToke, (req, res)=>{
 })
 
 
-
+//Get 10 usser with teh best score
+app.get("/api/table",(req,res)=>{
+  db.User.find({}).limit(10).sort({points:-1})
+  .then((data)=>{
+      console.log('Data:', data);
+      res.json(data);
+  })
+    .catch((error)=>{
+        console.log('error', error);
+    }) 
+})
 
 
 //Check if you are login and send response
