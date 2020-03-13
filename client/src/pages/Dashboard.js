@@ -418,19 +418,20 @@ class Dashboard extends Component {
                                         
                                     <div key={quiz._id} className="myHistory">
                                         <div class="dateHis">{quiz.date}</div>
-                                        <div>
+                                        <div class="len">
+                                            <div className="strong">Language</div>
                                             <div>{quiz.title}</div>
                                         </div>
                                         <div>
-                                            <div>Correct answers</div>
+                                            <div className="strong">Correct answers</div>
                                             <div>{quiz.correctAnswers}</div>
                                         </div>
                                         <div>
-                                            <div>Incorrect answers</div>
+                                            <div className="strong">Incorrect answers</div>
                                             <div>{quiz.incorrectAnswers}</div>
                                         </div>
                                         <div>
-                                            <div>Time</div>
+                                            <div className="strong">Time</div>
                                             <div>{quiz.time}s</div>
                                         </div>
                                     </div>
