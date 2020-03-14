@@ -5,15 +5,26 @@ import Newlogo from "../components/Images/Newlogo.png"
 import { Parallax, Background } from 'react-parallax';
 import {Link} from "react-router-dom"
 import ScoreTable from '../components/ScoreTable'
+import axios from "axios";
+import { set } from "mongoose";
 
 
 class Table extends Component{
     state={
-        usersArray:API.topUsers()
+        usersArray: []
+        
     }
 componentDidMount=()=>{
 
-
+    axios.get('/api/table').then((data)=>{
+        console.log("this is teh data")
+        
+        this.setState({usersArray:data.data})
+    }).catch(()=>{
+        console.log('not errors')
+    })
+    // const usersArray=API.topUsers();
+    // this.setState({usersArray})
 
 }
 renderComponents = () => {
@@ -33,6 +44,8 @@ renderComponents = () => {
 
 render(){
 return (
+
+
     <div>
             <div>
                 <nav>
