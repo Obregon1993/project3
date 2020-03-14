@@ -121,6 +121,7 @@ class Main extends Component {
                         ):(
                             <Link to="/login" className="waves-effect waves-light btn-large red darken-4 white-text"><i class="material-icons right">arrow_forward</i>Get Started</Link>
                         )}
+                        
                     </div>
 
                 </div>

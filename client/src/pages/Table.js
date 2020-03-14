@@ -20,6 +20,7 @@ componentDidMount=()=>{
         console.log("this is teh data")
         
         this.setState({usersArray:data.data})
+        console.log(this.state.usersArray)
     }).catch(()=>{
         console.log('not errors')
     })
@@ -31,8 +32,8 @@ renderComponents = () => {
    
         return (
             <div>
-            <li><Link to="/login" className="red-text text-darken-4"><strong>Login</strong></Link></li>
-            <li><Link to="/register" className="red-text text-darken-4"><strong>Sign Up</strong></Link></li>
+            {/*<li><Link to="/login" className="red-text text-darken-4"><strong>Login</strong></Link></li>
+            <li><Link to="/register" className="red-text text-darken-4"><strong>Sign Up</strong></Link></li>*/}
             <li><Link to="/" className="red-text text-darken-4"><strong>Home Page</strong></Link></li>
             {/*<Login/>
             <Register/>*/}
@@ -55,15 +56,6 @@ return (
                         </div>
                         <ul id="nav-mobile" className="hide-on-med-and-down" style={{ marginLeft: '100px' }}>
                             {this.renderComponents()}
-                        </ul>
-                        <ul id="nav-mobile" className="right hide-on-med-and-down">
-                            {this.state.tokenValid  ? (
-                                null
-                            ):(
-                                <li><Link to="/login" className="waves-effect waves-light btn-small red darken-4 white-text"><i className="material-icons right">arrow_forward</i>Get Started</Link></li>
-
-                            )}
-                            
                         </ul>
                     </div>
                 </nav>
