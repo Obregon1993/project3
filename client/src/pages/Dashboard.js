@@ -106,14 +106,14 @@ class Dashboard extends Component {
 
 
     componentDidMount = () => {
-        document.body.style.background = "url('https://lh3.googleusercontent.com/LCoBx4Jsuog7p27jdzh_HJ7bZnbhLdHRY-59iIf9ZguW2uoiYRk_q3rZlpXRuqLrH7dW6rbKQQCPd40w70znd4rx23JzkIxHFvwz3fxFLsZkazFU39st5BXTB5d5ldKtmRgbuRYNS7PdYtmxTGlUyRRPzDfztlD2OFYxo24djnHJ1yNV5hCsNvSLF0E5A6JW2X-1Y0fia1oIRd8kQHr41RS5LANeOjORIWPY8qPeXl1hgc_CssIHJtGimM9qZl_gdH53w_ioTw-anwkhLhPUiRQnr_7eADHwzkvoBTIKAXFq6bSeXzHmQqNfmjNngttMbdXQfIo6J0IK9eoUJLnR7EmkTTkMu7RyBEHkjF0kDJnpdtXSZscCOisUdT7YVHt2U4q334Ev9AcVm4nSngBnPRIIG8cr-APHg1NbPuyCdaAcGoJwWy3cKpZDYRKUw4Vlu_W6Up92gxtj7ZXBdqRGyUSUYwuwMsTwodYjoCYZk16kI6ykLP4Ik3HKxhkwD91Y_l3cK4HNwjRTKXIfrl-4KrB7-tcxARfGEab84BO4l-tfP0CtrWfKoGDjFkicDw-b5r-ku4YA8zEY0QxVaCyUyS_e8seQufsIzXvNIvk6_KLkcX0bbkgQO2MEfpWmqdv6SGNEYmasnkQmSFlmA3I7w98n4CCjxK5MQpavThs5-yIKTBow4ExfkYw=w1280-h853-no')"
+        document.body.style.background = "url('https://scontent-mia3-1.xx.fbcdn.net/v/t1.0-9/89242074_100362221601446_8404418285717684224_o.jpg?_nc_cat=101&_nc_sid=8024bb&_nc_ohc=VJ5X29wlq0AAX-vCE1E&_nc_ht=scontent-mia3-1.xx&oh=42b53918de761852f77508519df5bbc4&oe=5EA38DDE')"
         let jwt = localStorage.getItem('token')
       API.Auth({
         token: jwt
       }).then(res => {
           console.log(res.data)
           if(res.data !== "notLogin"){
-            //this.setState({tokenValid: true})
+            this.setState({tokenValid: true})
             this.setState({
                 userName: res.data.name,
                 quizTaken: res.data.totalQuizzes,
@@ -417,7 +417,7 @@ class Dashboard extends Component {
                                     this.state.history.map(quiz =>(
                                         
                                     <div key={quiz._id} className="myHistory">
-                                        <div class="dateHis">{quiz.date}</div>
+                                        <div class="dateHis strong">{quiz.date}</div>
                                         <div>
                                             <div>{quiz.title}</div>
                                         </div>

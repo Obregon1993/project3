@@ -1,5 +1,6 @@
 require('dotenv').config()
 
+const morgan = require('morgan');
 const express = require("express");
 const bcrypt = require("bcrypt")
 const mongoose = require("mongoose");
@@ -292,7 +293,17 @@ app.post("/user/history", authenticateToke, (req, res)=>{
 })
 
 
-
+//Get 10 usser with teh best score
+app.get("/api/table",(req,res)=>{
+  db.User.find({}).limit(5).sort({totalPoints:-1})
+  .then((data)=>{
+      console.log('Data:', data);
+      res.json(data);
+  })
+    .catch((error)=>{
+        console.log('error', error);
+    }) 
+})
 
 
 //Check if you are login and send response
@@ -322,13 +333,13 @@ let cplus = require("./scripts/C++DB")
 let Ruby = require("./scripts/RubyDB")
 
 function SaveToMongo(){
-  db.QsJavascript.insertMany(javascript)
-  db.QsPython.insertMany(Python)
-  db.QsCplus.insertMany(cplus)
-  db.QsRuby.insertMany(Ruby)
+  // db.QsJavascript.insertMany(javascript)
+  // db.QsPython.insertMany(Python)
+  // db.QsCplus.insertMany(cplus)
+  // db.QsRuby.insertMany(Ruby)
 }
 
-
+app.use(morgan('tiny'));
 
 
 app.listen(PORT, function() {

@@ -22,5 +22,10 @@ export default {
     },
     showHistory: function(history) {
         return axios.post("/user/history", history);
+    },
+    topUsers: function(){
+        axios.get('/api/table',(data)=>{
+            return data;
+        })
     }
 };
