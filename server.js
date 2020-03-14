@@ -1,9 +1,12 @@
 require('dotenv').config()
 
+const morgan = require('morgan');
 const express = require("express");
 const bcrypt = require("bcrypt")
 const mongoose = require("mongoose");
 const jwt = require("jsonwebtoken")
+
+
 
 var db = require("./models");
 
@@ -35,7 +38,7 @@ app.post("/api/users/add", async (req, res) => {
     if(!dbUser){
       try {
         const hashedPassword = await bcrypt.hash(req.body.tete, 10)
-        const user = { name: req.body.name, password: hashedPassword, totalQuizzes: 0, totalPoints: 0, bestRecord: 70, quizzesPass: 0, quizzesFail: 0, correctXincorrect: 0}
+        const user = { name: req.body.name, email: req.body.email ,password: hashedPassword, totalQuizzes: 0, totalPoints: 0, bestRecord: 70, quizzesPass: 0, quizzesFail: 0, correctXincorrect: 0}
         db.User.create(user)
         res.status(201).send("Account created successfully")
       } catch {
@@ -179,7 +182,7 @@ app.post("/check/quiz", authenticateToke, (req, res)=>{
       
         
       ).then(function(dbUser){
-        console.log(dbUser)
+        //console.log(dbUser)
       })
     }
     if(passOrFail === "fail"){
@@ -189,7 +192,7 @@ app.post("/check/quiz", authenticateToke, (req, res)=>{
       
         
       ).then(function(dbUser){
-        console.log(dbUser)
+        //console.log(dbUser)
       })
     }
   
@@ -200,7 +203,7 @@ app.post("/check/quiz", authenticateToke, (req, res)=>{
   
     
   ).then(function(dbUser){
-    console.log(yourTime)
+    //console.log(yourTime)
     if(yourTime < dbUser.bestRecord){
       updateTime()
     } else {
@@ -291,6 +294,16 @@ app.post("/user/history", authenticateToke, (req, res)=>{
   })
 })
 
+app.get("/api/table",(req,res)=>{
+  db.User.find({}).limit(5).sort({totalPoints:-1})
+  .then((data)=>{
+      console.log('Data: plz send', data);
+      res.json(data);
+  })
+    .catch((error)=>{
+        console.log('error', error);
+    }) 
+})
 
 
 
@@ -322,10 +335,10 @@ let cplus = require("./scripts/C++DB")
 let Ruby = require("./scripts/RubyDB")
 
 function SaveToMongo(){
-  db.QsJavascript.insertMany(javascript)
-  db.QsPython.insertMany(Python)
-  db.QsCplus.insertMany(cplus)
-  db.QsRuby.insertMany(Ruby)
+  //db.QsJavascript.insertMany(javascript)
+  //db.QsPython.insertMany(Python)
+  //db.QsCplus.insertMany(cplus)
+  //db.QsRuby.insertMany(Ruby)
 }
 
 

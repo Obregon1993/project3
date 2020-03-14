@@ -446,10 +446,22 @@ class Dashboard extends Component {
                         ):this.state.quiz == true ? (
                         <div id="quiz" className="quizWrapper">
                             <h3>Quiz</h3>
-                            <button onClick={this.selectQuiz} value="javascript">Javascript</button>
-                            <button onClick={this.selectQuiz} value="python">Python</button>
-                            <button onClick={this.selectQuiz} value="c++">C++</button>
-                            <button onClick={this.selectQuiz} value="ruby">Ruby</button>
+                            <div>
+                                <img class="lenImg" src="https://html5hive.org/wp-content/uploads/2014/06/js_800x800.jpg"/>
+                                <button onClick={this.selectQuiz} value="javascript">Javascript</button>
+                            </div>
+                            <div>
+                                <img class="lenImg" src="https://nathsir-bucket.s3.amazonaws.com/media/py.png"/>
+                                <button onClick={this.selectQuiz} value="python">Python</button>
+                            </div>
+                            <div>
+                                <img class="lenImg" src="https://i.redd.it/31b2ii8hchi31.jpg"/>
+                                <button onClick={this.selectQuiz} value="c++">C++</button>
+                            </div>
+                            <div class="nextLine">
+                                <img class="lenImg" src="https://p7.hiclipart.com/preview/405/943/719/5bfc694a2d422.jpg"/>
+                                <button onClick={this.selectQuiz} value="ruby">Ruby</button>
+                            </div>
                         </div>
                         ):this.state.social == true ? (
                         <div id="social" className="socialWrapper">
@@ -497,43 +509,84 @@ class Dashboard extends Component {
                         <PageCont>
                             <div className="resultsCont">
                                 <div className="contForRes">
+                                    {this.state.displayCorrectAnswer1 ?(
+                                    <div>
                                     <p style={{color: "green"}}>{this.state.displayCorrectQuestion1}</p>
-                                    <p style={{textDecoration: "underline", textDecorationColor: "green"}}>{this.state.displayCorrectAnswer1}</p>
-                                    
+                                    <p style={{border: "1px solid #bebebe",padding: "10px",borderRadius: "10px",background: "#f5f5f5",color: "green",fontWeight: "bold"}}>{this.state.displayCorrectAnswer1}</p>
+                                    </div>
+                                    ):(null)}
+
+                                    {this.state.displayCorrectAnswer2 ?(
+                                    <div>
                                     <p style={{color: "green"}}>{this.state.displayCorrectQuestion2}</p>
-                                    <p style={{textDecoration: "underline", textDecorationColor: "green"}}>{this.state.displayCorrectAnswer2}</p>
-                                    
+                                    <p style={{border: "1px solid #bebebe",padding: "10px",borderRadius: "10px",background: "#f5f5f5",color: "green",fontWeight: "bold"}}>{this.state.displayCorrectAnswer2}</p>
+                                    </div>
+                                    ):(null)}
+
+                                    {this.state.displayCorrectAnswer3 ?(
+                                    <div>
                                     <p style={{color: "green"}}>{this.state.displayCorrectQuestion3}</p>
-                                    <p style={{textDecoration: "underline", textDecorationColor: "green"}}>{this.state.displayCorrectAnswer3}</p>
-                                    
+                                    <p style={{border: "1px solid #bebebe",padding: "10px",borderRadius: "10px",background: "#f5f5f5",color: "green",fontWeight: "bold"}}>{this.state.displayCorrectAnswer3}</p>
+                                    </div>
+                                    ):(null)}
+
+                                    {this.state.displayCorrectAnswer4 ?(
+                                    <div>
                                     <p style={{color: "green"}}>{this.state.displayCorrectQuestion4}</p>
-                                    <p style={{textDecoration: "underline", textDecorationColor: "green"}}>{this.state.displayCorrectAnswer4}</p>
-                                    
+                                    <p style={{border: "1px solid #bebebe",padding: "10px",borderRadius: "10px",background: "#f5f5f5",color: "green",fontWeight: "bold"}}>{this.state.displayCorrectAnswer4}</p>
+                                    </div>
+                                    ):(null)}
+
+                                    {this.state.displayCorrectAnswer5 ?(
+                                    <div>
                                     <p style={{color: "green"}}>{this.state.displayCorrectQuestion5}</p>
-                                    <p style={{textDecoration: "underline", textDecorationColor: "green"}}>{this.state.displayCorrectAnswer5}</p>
+                                    <p style={{border: "1px solid #bebebe",padding: "10px",borderRadius: "10px",background: "#f5f5f5",color: "green",fontWeight: "bold"}}>{this.state.displayCorrectAnswer5}</p>
+                                    </div>
+                                    ):(null)}
                                 </div>
                                 <div className="contForRes">
+
+                                    {this.state.displayIncorrectAnswer1 ?(
+                                    <div>
                                     <p style={{color: "red"}}>{this.state.displayIncorrectQuestion1}</p>
-                                    <p style={{textDecoration: "underline", textDecorationColor: "red"}}>{this.state.displayIncorrectAnswer1}</p>
-                                    <p style={{textDecoration: "underline", textDecorationColor: "green"}}>{this.state.displayCorrectData1}</p>
-                                    
+                                    <p style={{border: "1px solid #bebebe",padding: "10px",borderRadius: "10px",background: "#f5f5f5",color: "red",fontWeight: "bold"}}>{this.state.displayIncorrectAnswer1}</p>
+                                    <p style={{textDecoration: "underline", textDecorationColor: "green"}}>Correct answer: {this.state.displayCorrectData1}</p>
+                                    </div>
+                                    ):(null)}
+
+                                    {this.state.displayIncorrectAnswer2 ?(
+                                    <div>
                                     <p style={{color: "red"}}>{this.state.displayIncorrectQuestion2}</p>
-                                    <p style={{textDecoration: "underline", textDecorationColor: "red"}}>{this.state.displayIncorrectAnswer2}</p>
-                                    <p style={{textDecoration: "underline", textDecorationColor: "green"}}>{this.state.displayCorrectData2}</p>
-                                    
+                                    <p style={{border: "1px solid #bebebe",padding: "10px",borderRadius: "10px",background: "#f5f5f5",color: "red",fontWeight: "bold"}}>{this.state.displayIncorrectAnswer2}</p>
+                                    <p style={{textDecoration: "underline", textDecorationColor: "green"}}>Correct answer: {this.state.displayCorrectData2}</p>
+                                    </div>
+                                    ):(null)}
+
+                                    {this.state.displayIncorrectAnswer3 ?(
+                                    <div>
                                     <p style={{color: "red"}}>{this.state.displayIncorrectQuestion3}</p>
-                                    <p style={{textDecoration: "underline", textDecorationColor: "red"}}>{this.state.displayIncorrectAnswer3}</p>
-                                    <p style={{textDecoration: "underline", textDecorationColor: "green"}}>{this.state.displayCorrectData3}</p>
-                                    
+                                    <p style={{border: "1px solid #bebebe",padding: "10px",borderRadius: "10px",background: "#f5f5f5",color: "red",fontWeight: "bold"}}>{this.state.displayIncorrectAnswer3}</p>
+                                    <p style={{textDecoration: "underline", textDecorationColor: "green"}}>Correct answer: {this.state.displayCorrectData3}</p>
+                                    </div>
+                                    ):(null)}
+
+                                    {this.state.displayIncorrectAnswer4 ?(
+                                    <div>
                                     <p style={{color: "red"}}>{this.state.displayIncorrectQuestion4}</p>
-                                    <p style={{textDecoration: "underline", textDecorationColor: "red"}}>{this.state.displayIncorrectAnswer4}</p>
-                                    <p style={{textDecoration: "underline", textDecorationColor: "green"}}>{this.state.displayCorrectData4}</p>
-                                    
+                                    <p style={{border: "1px solid #bebebe",padding: "10px",borderRadius: "10px",background: "#f5f5f5",color: "red",fontWeight: "bold"}}>{this.state.displayIncorrectAnswer4}</p>
+                                    <p style={{textDecoration: "underline", textDecorationColor: "green"}}>Correct answer: {this.state.displayCorrectData4}</p>
+                                    </div>
+                                    ):(null)}
+
+                                    {this.state.displayIncorrectAnswer5 ?(
+                                    <div>
                                     <p style={{color: "red"}}>{this.state.displayIncorrectQuestion5}</p>
-                                    <p style={{textDecoration: "underline", textDecorationColor: "red"}}>{this.state.displayIncorrectAnswer5}</p>
-                                    <p style={{textDecoration: "underline", textDecorationColor: "green"}}>{this.state.displayCorrectData5}</p>
+                                    <p style={{border: "1px solid #bebebe",padding: "10px",borderRadius: "10px",background: "#f5f5f5",color: "red",fontWeight: "bold"}}>{this.state.displayIncorrectAnswer5}</p>
+                                    <p style={{textDecoration: "underline", textDecorationColor: "green"}}>Correct answer: {this.state.displayCorrectData5}</p>
+                                    </div>
+                                    ):(null)}
                                 </div>
-                                <button onClick={this.finishQuiz}>Finish</button>
+                                <button onClick={this.finishQuiz} id="finishQuiz">Finish</button>
                             </div>
                         </PageCont>
                     ))}

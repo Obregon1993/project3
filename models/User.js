@@ -13,6 +13,10 @@ var userSchema = new Schema({
     type: String,
     required: true
   },
+  email: {
+    type: String,
+    require: true
+  },
   totalQuizzes: {
     type: Number,
     require: true
