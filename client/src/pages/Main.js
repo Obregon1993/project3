@@ -40,6 +40,7 @@ class Main extends Component {
                 <div>
                 <li><Link to="/login" className="red-text text-darken-4"><strong>Login</strong></Link></li>
                 <li><Link to="/register" className="red-text text-darken-4"><strong>Sign Up</strong></Link></li>
+                <li><Link to="/table" className="red-text text-darken-4"><strong>Score Table</strong></Link></li>
                 {/*<Login/>
                 <Register/>*/}
                 </div>
@@ -49,6 +50,7 @@ class Main extends Component {
                 <div>
                 <li><LogName>Welcome {this.state.userName}</LogName></li>
                 <li><LogOut onClick={this.logOut}/></li>
+                <li><Link to="/table" className="red-text text-darken-4"><strong>Score Table</strong></Link></li>
                 </div>
             )
         

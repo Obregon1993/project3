@@ -3,11 +3,14 @@ import './style.css'
 
 const ScoreTable=({usersArray})=>{
 return (
+  <div>
+  <h1>Score Table</h1>
     <div className='tablediv'>
-<h1>Score Table</h1>
+
 <table class="content-table">
   <thead>
     <tr>
+    <th>Position</th>
       <th>Name</th>
       <th>Total Quizzes</th>
       <th>Quizzes Pass</th>
@@ -35,7 +38,7 @@ return (
   </tbody>
 </table>
 
-    </div>
+    </div></div>
 )
 }
 export default ScoreTable;

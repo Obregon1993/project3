@@ -91,10 +91,11 @@ return (
             strength={-200}
 
             >
+                <ScoreTable usersArray={this.state.usersArray}/>
+                    
             <div style={{ height: '300px', marginTop: "50px" }}>
                 <div class="card transparent">
 
-                    <ScoreTable usersArray={this.state.usersArray}/>
                     
                 </div>
             </div>
