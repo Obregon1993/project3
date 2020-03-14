@@ -293,11 +293,11 @@ app.post("/user/history", authenticateToke, (req, res)=>{
 })
 
 
-//Get 10 usser with teh best score
+//Get 5 usser with teh best score
 app.get("/api/table",(req,res)=>{
   db.User.find({}).limit(5).sort({totalPoints:-1})
   .then((data)=>{
-      console.log('Data:', data);
+      console.log('Data: plz send', data);
       res.json(data);
   })
     .catch((error)=>{

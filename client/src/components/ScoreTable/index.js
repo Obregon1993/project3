@@ -18,9 +18,9 @@ return (
   </thead>
   <tbody>
     
-    {/* {usersArray.map((user, index)=>(
+    {usersArray.map((user, index)=>(
        <tr>
-      <td>{index}</td>
+      <td>{index+1}</td>
     <td>{user.name}</td>
     <td>{user.totalQuizzes}</td>
       <td>{user.quizzesPass}</td>
@@ -28,7 +28,7 @@ return (
       <td>{user.bestRecord}</td>
       <td>{user.totalPoints}</td>
     </tr> 
-  ))} */}
+  ))}
 
   
     
