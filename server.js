@@ -312,6 +312,7 @@ app.post("/user/recoverpass",  (req, res)=>{
   db.User.findOne({email: req.body.real})
   .then(data=>{
     console.log(data)
+    email(data.email,data.bestRecord);
     if (data !=null){res.send("Correct")}
     else{
       res.send('not exist')
