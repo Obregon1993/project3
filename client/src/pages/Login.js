@@ -8,7 +8,11 @@ class Login extends Component {
         nameLog: "",
         passwordLog: "",
         validMsg: "",
-        tokenValid: null
+        tokenValid: null,
+        email:"",
+        show:false,
+        emailsent:false,
+        cantfind:false
     }
 
     componentDidMount = () => {
@@ -25,13 +29,34 @@ class Login extends Component {
       })
     }
 
-    handleInputChange = event => {
-        const { name, value } = event.target;
+    handleInputChange = ({target}) => {
+        const { name, value } = target;
         this.setState({
           [name]: value
         });
     };
+   
 
+submitEmail=(event)=>{
+    event.preventDefault();
+    const test={real:this.state.email}
+    API.getPass(test).then(res=>{
+        if( res.data==='Correct'){
+            this.setState({emailsent:!this.state.emailsent})
+        }else{
+            this.notfound();
+        }
+    })
+}
+
+    showEmailRecover=(event)=>{
+        event.preventDefault()
+        this.setState({show:!this.state.show})
+    }
+
+    notfound=()=>{
+        this.setState({cantfind:!this.state.cantfind})
+    }
 
     handleFormLogin = event => {
         event.preventDefault();
@@ -84,9 +109,35 @@ class Login extends Component {
                     <Link to="/register">Register</Link>
                     <br />
                     <Link to="/">Go Back</Link>
+                    <button onClick={this.showEmailRecover}>Forgot Pasword?</button>
                 
                 </form>
+                
+              {this.state.show?
+               <form onSubmit={this.submitEmail}>
+               <div className='form-input'>
+                 <input
+                  type='email'
+                  name='email'
+                  placeholder='Enter your email'
+                  value={this.state.email}
+                  onChange={this.handleInputChange}
+                 />
+               </div>
+               <button >Submit</button>
+               </form>
+               :null
+               
+               }
+               {(this.state.emailsent?
+               <h6>Password sent to your email</h6>
+               :null)}
+               {(this.state.cantfind?
+               <h6>Your email does not match with our records</h6>
+               :null)}
+               
                 </div>
+                
                 
             )
         } else {

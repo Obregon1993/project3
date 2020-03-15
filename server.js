@@ -2,9 +2,10 @@ require('dotenv').config()
 
 const morgan = require('morgan');
 const express = require("express");
-const bcrypt = require("bcrypt")
+const bcrypt = require("bcrypt");
 const mongoose = require("mongoose");
-const jwt = require("jsonwebtoken")
+const jwt = require("jsonwebtoken");
+const nodemailer=require('nodemailer')
 
 
 
@@ -305,7 +306,21 @@ app.get("/api/table",(req,res)=>{
     }) 
 })
 
-
+///////to recover pass
+app.post("/user/recoverpass",  (req, res)=>{
+  
+  db.User.findOne({email: req.body.real})
+  .then(data=>{
+    console.log(data)
+    if (data !=null){res.send("Correct")}
+    else{
+      res.send('not exist')
+    }
+    
+  }).catch(error=>{
+    console.log(error)
+  })
+})
 
 
 //Check if you are login and send response
@@ -340,8 +355,28 @@ function SaveToMongo(){
   //db.QsCplus.insertMany(cplus)
   //db.QsRuby.insertMany(Ruby)
 }
+///use to email, pasing email and pass
+email=(email,msg)=>{
+  let transporter=nodemailer.createTransport({
+    service: 'gmail',
+    auth:{
+        user:process.env.EMAIL,
+        pass:process.env.PASSWORD
+    }
+});
+let mailOptions={
+  from:'',
+  to: email,//in case wanna add more users just , adn de new email(everithing inside quotes)
+  //cc:''  this is in case u wanan add cc to ur email
+  //bcc:''  same than cc
+  subject:'testing and more testing',
+  text: `this is your current password for SYKYC: ${msg}`
+};
+transporter.sendMail(mailOptions, (err,data)=>{
+  (err)?console.log('error ocurrs'):console.log('email sent');
+})
 
-
+}
 
 
 app.listen(PORT, function() {
