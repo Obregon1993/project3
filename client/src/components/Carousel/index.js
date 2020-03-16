@@ -1,81 +1,115 @@
-import React from "react";
-import './style.css';
-// import ImageSlide from "./ImageSlide";
-// import Arrow from "./Arrow"
+import React, { useState } from 'react';
+import ItemsCarousel from 'react-items-carousel';
+import html_quiz from "../ParallaxTemp/assets/html_quiz.png";
 
-// 
-
-const imgUrls = [
-    "../ParallaxTemp/assets/red_background.png",
-    "https://lh3.googleusercontent.com/oxPeODS2m6rYIVbhcQChRtOWEYeGDwbeeeB1cDU2o_WYAVPU61VIgx-_6BAh5gSL8Sw=h900",
-    "https://i0.wp.com/www.universodegatos.com/wp-content/uploads/2017/04/fivfelv7.jpg?resize=582%2C328",
-    "https://i.pinimg.com/736x/07/c3/45/07c345d0eca11d0bc97c894751ba1b46.jpg",
-    "https://ehealthforum.com/health/images/avatars/11699147425707699031013.jpeg"
-];
-
-class Carousel extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            currentImageIndex: 0
-        };
-
-        this.nextSlide = this.nextSlide.bind(this);
-        this.previousSlide = this.previousSlide.bind(this);
-    }
-
-    previousSlide() {
-        const lastIndex = imgUrls.length - 1;
-        const { currentImageIndex } = this.state;
-        const shouldResetIndex = currentImageIndex === 0;
-        const index = shouldResetIndex ? lastIndex : currentImageIndex - 1;
-
-        this.setState({
-            currentImageIndex: index
-        });
-    }
-
-    nextSlide() {
-        const lastIndex = imgUrls.length - 1;
-        const { currentImageIndex } = this.state;
-        const shouldResetIndex = currentImageIndex === lastIndex;
-        const index = shouldResetIndex ? 0 : currentImageIndex + 1;
-
-        this.setState({
-            currentImageIndex: index
-        });
-    }
-
-    render() {
-        return (
-            <div className="carousel">
-                <Arrow direction="left" clickFunction={this.previousSlide} glyph="&#9664;" />
-                <ImageSlide url={imgUrls[this.state.currentImageIndex]} />
-                <Arrow direction="right" clickFunction={this.nextSlide} glyph="&#9654;" />
-            </div>
-        );
-    }
-}
-
-const Arrow = ({ direction, clickFunction, glyph }) => (
-    <div
-        className={`slide-arrow ${direction}`}
-        onClick={clickFunction}>
-        {glyph}
-    </div>
-);
-
-const ImageSlide = ({ url }) => {
-    const styles = {
-        backgroundImage: `url(${url})`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center'
-    };
-
+export default () => {
+    const [activeItemIndex, setActiveItemIndex] = useState(0);
+    const chevronWidth = 40;
     return (
-        <div className="image-slide" style={styles}></div>
-    );
-}
+        <div style={{ padding: `0 ${chevronWidth}px` }}>
+            <ItemsCarousel
+                requestToChangeActive={setActiveItemIndex}
+                activeItemIndex={activeItemIndex}
+                numberOfCards={3}
+                gutter={20}
+                leftChevron={<button>{'<'}</button>}
+                rightChevron={<button>{'>'}</button>}
+                outsideChevron
+                chevronWidth={chevronWidth}
+            >
+                {/* <div style={{ height: 200, background: '#EEE' }}> */}
+                {/* QUIZ CARD 1 */}
+                <div class="card-panel grey darken-2 col m3" style={{ marginLeft: "20px" }}>
+                    <div class="card-image">
+                        <img src={html_quiz} alt="html_image" style={{ marginTop: "20px" }}></img>
+                        <div class="card-content">
+                            <h5>HTML Quiz</h5>
+                            <p>I am a very simple card. I am good at containing small bits of information. I am convenient because I require little markup to use effectively.</p>
+                        </div>
+                        <div class="card-action">
+                            <a href="http://www.google.com">This is a link</a>
+                        </div>
 
-export default Carousel;
+                    </div>
+                </div>
+                {/* </div> */}
+
+                {/* QUIZ CARD 2 */}
+                <div class="card-panel grey darken-2 col m3" style={{ marginLeft: "20px" }}>
+                    <div class="card-image">
+                        <img src={html_quiz} alt="html_image" style={{ marginTop: "20px" }}></img>
+                        <div class="card-content">
+                            <h5>HTML Quiz</h5>
+                            <p>I am a very simple card. I am good at containing small bits of information. I am convenient because I require little markup to use effectively.</p>
+                        </div>
+                        <div class="card-action">
+                            <a href="http://www.google.com">This is a link</a>
+                        </div>
+
+                    </div>
+                </div>
+
+                {/* QUIZ CARD 3 */}
+                <div class="card-panel grey darken-2 col m3" style={{ marginLeft: "20px" }}>
+                    <div class="card-image">
+                        <img src={html_quiz} alt="html_image" style={{ marginTop: "20px" }}></img>
+                        <div class="card-content">
+                            <h5>HTML Quiz</h5>
+                            <p>I am a very simple card. I am good at containing small bits of information. I am convenient because I require little markup to use effectively.</p>
+                        </div>
+                        <div class="card-action">
+                            <a href="http://www.google.com">This is a link</a>
+                        </div>
+
+                    </div>
+                </div>
+
+                {/* QUIZ CARD 4 */}
+                <div class="card-panel grey darken-2 col m3" style={{ marginLeft: "20px" }}>
+                    <div class="card-image">
+                        <img src={html_quiz} alt="html_image" style={{ marginTop: "20px" }}></img>
+                        <div class="card-content">
+                            <h5>HTML Quiz</h5>
+                            <p>I am a very simple card. I am good at containing small bits of information. I am convenient because I require little markup to use effectively.</p>
+                        </div>
+                        <div class="card-action">
+                            <a href="http://www.google.com">This is a link</a>
+                        </div>
+
+                    </div>
+                </div>
+
+                {/* QUIZ CARD 5 */}
+                <div class="card-panel grey darken-2 col m3" style={{ marginLeft: "20px" }}>
+                    <div class="card-image">
+                        <img src={html_quiz} alt="html_image" style={{ marginTop: "20px" }}></img>
+                        <div class="card-content">
+                            <h5>HTML Quiz</h5>
+                            <p>I am a very simple card. I am good at containing small bits of information. I am convenient because I require little markup to use effectively.</p>
+                        </div>
+                        <div class="card-action">
+                            <a href="http://www.google.com">This is a link</a>
+                        </div>
+
+                    </div>
+                </div>
+
+                {/* QUIZ CARD 6 */}
+                <div class="card-panel grey darken-2 col m3" style={{ marginLeft: "20px" }}>
+                    <div class="card-image">
+                        <img src={html_quiz} alt="html_image" style={{ marginTop: "20px" }}></img>
+                        <div class="card-content">
+                            <h5>HTML Quiz</h5>
+                            <p>I am a very simple card. I am good at containing small bits of information. I am convenient because I require little markup to use effectively.</p>
+                        </div>
+                        <div class="card-action">
+                            <a href="http://www.google.com">This is a link</a>
+                        </div>
+
+                    </div>
+                </div>
+
+            </ItemsCarousel>
+        </div>
+    );
+};

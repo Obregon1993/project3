@@ -2,7 +2,6 @@ import React from "react";
 import Container from "../components/Container";
 import Navbar from "../components/Navbar";
 import ParallaxTemp from "../components/ParallaxTemp"
-import Carousel from "../components/Carousel"
 
 
 function Main() {
@@ -12,7 +11,6 @@ function Main() {
             <Container />
             <Navbar />
             <ParallaxTemp />
-            <Carousel />
         </div>
 </>
 
