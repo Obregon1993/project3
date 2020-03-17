@@ -9,10 +9,10 @@ class Login extends Component {
         passwordLog: "",
         validMsg: "",
         tokenValid: null,
-        email:"",
-        show:false,
-        emailsent:false,
-        cantfind:false
+        //email:"",
+       // show:false,
+        //emailsent:false,
+        //cantfind:false
     }
 
     componentDidMount = () => {
@@ -113,7 +113,7 @@ submitEmail=(event)=>{
                 
                 </form>
                 
-              {this.state.show?
+              {/* {this.state.show?
                <form onSubmit={this.submitEmail}>
                <div className='form-input'>
                  <input
@@ -134,7 +134,7 @@ submitEmail=(event)=>{
                :null)}
                {(this.state.cantfind?
                <h6>Your email does not match with our records</h6>
-               :null)}
+               :null)} */}
                
                 </div>
                 

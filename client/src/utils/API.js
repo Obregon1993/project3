@@ -33,7 +33,7 @@ export default {
       //  return 10
       
     },
-    getPass: function (email) {
-        return axios.post("/user/recoverpass", email);
+    wellcomeEmail: function (email) {
+        return axios.post("/user/wellcome", email);
     }
 };

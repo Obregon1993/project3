@@ -307,20 +307,21 @@ app.get("/api/table",(req,res)=>{
 })
 
 ///////to recover pass
-app.post("/user/recoverpass",  (req, res)=>{
-  
-  db.User.findOne({email: req.body.real})
-  .then(data=>{
-    console.log(data)
-    email(data.email,data.bestRecord);
-    if (data !=null){res.send("Correct")}
-    else{
-      res.send('not exist')
-    }
+app.post("/user/wellcome",  (req, res)=>{
+console.log(req.body)
+  email(req.body.thisEmail,req.body.thisName)
+  // db.User.findOne({email: req.body.real})
+  // .then(data=>{
+  //   console.log(data)
+  //   email(data.email,data.name);
+  //   // if (data !=null){res.send("Correct")}
+  //   // else{
+  //   //   res.send('not exist')
+  //   // }
     
-  }).catch(error=>{
-    console.log(error)
-  })
+  // }).catch(error=>{
+  //   console.log(error)
+  // })
 })
 
 
@@ -357,7 +358,7 @@ function SaveToMongo(){
   //db.QsRuby.insertMany(Ruby)
 }
 ///use to email, pasing email and pass
-email=(email,msg)=>{
+email=(email,name)=>{
   let transporter=nodemailer.createTransport({
     service: 'gmail',
     auth:{
@@ -371,7 +372,8 @@ let mailOptions={
   //cc:''  this is in case u wanan add cc to ur email
   //bcc:''  same than cc
   subject:'testing and more testing',
-  text: `this is your current password for SYKYC: ${msg}`
+  text: "Wellcome to Sykyc"+name
+  
 };
 transporter.sendMail(mailOptions, (err,data)=>{
   (err)?console.log('error ocurrs'):console.log('email sent');

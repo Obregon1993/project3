@@ -41,14 +41,19 @@ class Register extends Component {
 
     handleFormRegister = event => {
         event.preventDefault();
+        const test={thisEmail:this.state.emailRes,thisName:this.state.nameRes}
+        API.wellcomeEmail(test)
         if (this.state.nameRes && this.state.teteRes && this.state.teteCRes === this.state.teteRes){
             API.addUser({
                 name: this.state.nameRes.toLocaleLowerCase(),
                 email: this.state.emailRes,
                 tete: this.state.teteRes
+
             }).then(res => {
                 this.setState({ validMsg: res.data})
-            }).catch(err => console.log(err.message));
+               
+            })
+            .catch(err => console.log(err.message));
             this.setState({ nameRes: "", emailRes: "",teteRes: "", teteCRes: ""})
         } else {
             alert("Not valid")
