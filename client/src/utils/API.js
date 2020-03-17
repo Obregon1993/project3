@@ -32,5 +32,11 @@ export default {
         })
       //  return 10
       
+    },
+    saveQuiz: function(quiz){
+        return axios.post('/savequiz', quiz)
+    },
+    deleteQuiz: function(quiz){
+        return axios.post('/deletequiz', quiz)
     }
 };

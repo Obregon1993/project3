@@ -40,7 +40,8 @@ var userSchema = new Schema({
   correctXincorrect: {
     type: Number,
     require: true
-  }
+  },
+  quizSave: [String]
 });
 
 

@@ -38,7 +38,7 @@ app.post("/api/users/add", async (req, res) => {
     if(!dbUser){
       try {
         const hashedPassword = await bcrypt.hash(req.body.tete, 10)
-        const user = { name: req.body.name, email: req.body.email ,password: hashedPassword, totalQuizzes: 0, totalPoints: 0, bestRecord: 70, quizzesPass: 0, quizzesFail: 0, correctXincorrect: 0}
+        const user = { name: req.body.name, email: req.body.email ,password: hashedPassword, totalQuizzes: 0, totalPoints: 0, bestRecord: 70, quizzesPass: 0, quizzesFail: 0, correctXincorrect: 0, quizSave: []}
         db.User.create(user)
         res.status(201).send("Account created successfully")
       } catch {
@@ -303,6 +303,37 @@ app.get("/api/table",(req,res)=>{
     .catch((error)=>{
         console.log('error', error);
     }) 
+})
+
+app.post("/savequiz",authenticateToke,(req,res)=>{
+  let tosave = false
+  db.User.findOne({
+    name: req.user.name
+  }).then(function(dbUser){
+    for(let i=0; i<dbUser.quizSave.length; i++){
+      if(dbUser.quizSave[i] === req.body.saveQuiz){
+        tosave = true
+      }
+    }
+    if(tosave === false){
+      dbUser.quizSave.push(req.body.saveQuiz)
+      dbUser.save()
+    }
+    res.send(dbUser.quizSave)
+        
+  })
+})
+app.post("/deletequiz",authenticateToke,(req,res)=>{
+  db.User.findOne({
+    name: req.user.name
+  }).then(function(dbUser){
+    for(let i=0; i<dbUser.quizSave.length; i++){
+      if(dbUser.quizSave[i] === req.body.deleteQuiz){
+        dbUser.quizSave.splice(i, 1)
+        dbUser.save()
+      }
+    }
+  })
 })
 
 

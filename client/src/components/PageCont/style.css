@@ -91,6 +91,47 @@ body{
     border: 2px solid white;
 }
 
+
+#yourQuizzes {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 1em;
+}
+
+#yourQuizzes > h5 {
+    grid-column: 1/4;
+}
+
+#yourQuizzes > div {
+    display: grid;
+    grid-template-columns: 1fr;
+}
+
+#yourQuizzes > div > button {
+    padding: 20px;
+    background: white;
+    border: solid 2px #bebebe;
+    color: #bebebe;
+    font-size: 20px;
+    transition: 0.4s;
+}
+
+#yourQuizzes > div > button:hover {
+    background: #bebebe;
+    color: white;
+}
+
+#yourQuizzes > div > button:nth-child(2):hover{
+    background: red;
+    color: white;
+}
+
+#nosave{
+ margin-bottom: 20px;
+}
+
+
+
 .myHistory{
     margin-bottom: 30px;
     display: grid;
@@ -139,9 +180,22 @@ body{
     transition: 0.4s;
 }
 
+
 .quizWrapper > div > button:hover{
     background: #bebebe;
     color: white;
+}
+
+#quizToaddJv, #quizToaddPh, #quizToaddCp , #quizToaddRb{
+    border: 0px;
+    padding: 5px;
+    border-bottom: 2px solid #bebebe;
+    border-left: 2px solid #bebebe;
+    border-right: 2px solid #bebebe;
+}
+
+#quizToaddJv:hover, #quizToaddPh:hover, #quizToaddCp:hover , #quizToaddRb:hover{
+    background: green;
 }
 
 .doingQuiz{
@@ -180,6 +234,8 @@ body{
     background: white;
     border: solid 2px #bebebe;
 }
+
+
 
 .question > button:hover{
     border: solid 2px green;

@@ -52,6 +52,7 @@ class Dashboard extends Component {
         yourAnswer4: "",
         yourAnswer5: "",
 
+
         displayCorrectQuestion1: "",
         displayCorrectQuestion2: "",
         displayCorrectQuestion3: "",
@@ -91,6 +92,7 @@ class Dashboard extends Component {
         correctXincorrect: "",
         quizzesPass: "",
         quizzesFail: "",
+        quizSave: [],
 
         selectedOption: null,
         peopleFilter: [],
@@ -111,7 +113,6 @@ class Dashboard extends Component {
       API.Auth({
         token: jwt
       }).then(res => {
-          console.log(res.data)
           if(res.data !== "notLogin"){
             this.setState({tokenValid: true})
             this.setState({
@@ -120,10 +121,11 @@ class Dashboard extends Component {
                 totalPoints: res.data.totalPoints,
                 correctXincorrect: res.data.correctXincorrect,
                 quizzesPass: res.data.quizzesPass,
-                quizzesFail: res.data.quizzesFail
+                quizzesFail: res.data.quizzesFail,
+                quizSave: res.data.quizSave
                 
             })
-
+            console.log(this.state.quizSave)
             if(res.data.bestRecord === 70){
                 this.setState({bestRecord: "Pass a quiz"})
             } else {
@@ -260,7 +262,7 @@ class Dashboard extends Component {
         this.setState({goQuiz: "result"})
     }
     checkAnswer = event => {
-        const { name, value } = event.target;
+        const { name, value} = event.target;
         this.setState({
           [name]: value
         });
@@ -280,9 +282,9 @@ class Dashboard extends Component {
         }).then(res => {
             this.setState({peopleFilter: res.data})
             console.log(this.state.peopleFilter)
+            
         })
     }
-
     
 
     runAlert = value => {
@@ -297,6 +299,31 @@ class Dashboard extends Component {
             this.setState({social: true})
         }
     }
+
+    saveQuiz = event =>{
+        let jwt = localStorage.getItem('token')
+        let quizTosave = event.target.value
+        API.saveQuiz({
+            saveQuiz: quizTosave,
+            token: jwt
+        }).then(res=>{
+            window.location.reload()
+
+        })
+        
+    }
+
+    deleteSaveQuiz = event =>{
+        let jwt = localStorage.getItem('token')
+        let quizTodelete = event.target.value
+        API.deleteQuiz({
+            deleteQuiz: quizTodelete,
+            token: jwt
+        })
+        window.location.reload()
+        
+    }
+
     
 
     render(){
@@ -409,6 +436,20 @@ class Dashboard extends Component {
                                 <div>{this.state.quizzesFail}</div>
                             </div>
                         </div>
+                        
+                        <div id="yourQuizzes">
+                            <h5>Your Quizzes</h5>
+                            {this.state.quizSave.length ?(
+                            this.state.quizSave.map(quizsave =>(
+                                <div>
+                                    <button value={quizsave} onClick={this.selectQuiz}>{quizsave}</button>
+                                    <button value={quizsave} style={{padding: "5px"}} onClick={this.deleteSaveQuiz}>delete</button>
+                                </div>
+                            ))
+                            ):(
+                                <div id="nosave">No quizzes saved</div>
+                            )}
+                        </div>
                         <div>
                             <h5>History</h5>
                                 {this.state.history == "No history" ? (
@@ -448,19 +489,23 @@ class Dashboard extends Component {
                             <h3>Quiz</h3>
                             <div>
                                 <img class="lenImg" src="https://html5hive.org/wp-content/uploads/2014/06/js_800x800.jpg"/>
-                                <button onClick={this.selectQuiz} value="javascript">Javascript</button>
+                                <button class="goQuiz" onClick={this.selectQuiz} value="javascript">Javascript</button>
+                                <button id="quizToaddJv" onClick={this.saveQuiz} value="javascript">save</button>
                             </div>
                             <div>
                                 <img class="lenImg" src="https://nathsir-bucket.s3.amazonaws.com/media/py.png"/>
                                 <button onClick={this.selectQuiz} value="python">Python</button>
+                                <button id="quizToaddPh" onClick={this.saveQuiz} value="python">save</button>
                             </div>
                             <div>
                                 <img class="lenImg" src="https://i.redd.it/31b2ii8hchi31.jpg"/>
                                 <button onClick={this.selectQuiz} value="c++">C++</button>
+                                <button id="quizToaddCp" onClick={this.saveQuiz} value="c++">save</button>
                             </div>
                             <div class="nextLine">
                                 <img class="lenImg" src="https://p7.hiclipart.com/preview/405/943/719/5bfc694a2d422.jpg"/>
                                 <button onClick={this.selectQuiz} value="ruby">Ruby</button>
+                                <button id="quizToaddRb" onClick={this.saveQuiz} value="ruby">save</button>
                             </div>
                         </div>
                         ):this.state.social == true ? (
