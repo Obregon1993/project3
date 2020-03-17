@@ -5,7 +5,7 @@ import API from "../utils/API";
 import PageCont from "../components/PageCont";
 import Select from 'react-select';
 import Sidenav from "../components/SideNavBar"
-
+import './style.css'
 
 
 
@@ -101,7 +101,14 @@ class Dashboard extends Component {
 
         profile: true,
         quiz: false,
-        social: false
+        social: false,
+
+        
+        array1:[false,false,false,false],
+        array2:[false,false,false,false],
+        array3:[false,false,false,false],
+        array4:[false,false,false,false],
+        array5:[false,false,false,false]
 
     }
 
@@ -265,8 +272,32 @@ class Dashboard extends Component {
         const { name, value} = event.target;
         this.setState({
           [name]: value
-        });
+        });   
     }
+
+    hightlightBtn=(number1,number2,array)=>{
+var array=array;
+for (let i = 0; i < array.length; i++) {
+    array[i]=false;
+    }
+array[number1-1]=true;
+if(number1=20){
+console.log('yes')
+}
+else if(number2=1){
+this.setState({array1:array})
+}else if(number2=2){
+    this.setState({array2:array})
+}else if(number2=3){
+    this.setState({array3:array})
+}else if(number2=4){
+    this.setState({array4:array})
+}else if(number2=5){
+    this.setState({array5:array})
+}
+
+    }
+
     finishQuiz = () => {
         window.location.reload()
     }
@@ -340,6 +371,8 @@ class Dashboard extends Component {
                 onClick={this.runAlert}
                 doingQuiz={this.state.goQuiz}
                 />
+
+{/* <Carousel/>  */}
                 
                 {/*<Nav>
                     <div>SYKYC</div>
@@ -366,45 +399,45 @@ class Dashboard extends Component {
                             </div>
                             <div className="question">
                                 <p>1. {this.state.question1}</p>
-                                <button value={this.state.answer11} onClick={this.checkAnswer} name="yourAnswer1">{this.state.answer11}</button>
-                                <button value={this.state.answer12} onClick={this.checkAnswer} name="yourAnswer1">{this.state.answer12}</button>
-                                <button value={this.state.answer13} onClick={this.checkAnswer} name="yourAnswer1">{this.state.answer13}</button>
-                                <button value={this.state.answer14} onClick={this.checkAnswer} name="yourAnswer1">{this.state.answer14}</button>
+                                <button className={(this.state.array1[0])?"yourbtn":"mybtn"} value={this.state.answer11} onClick={(event)=>{this.checkAnswer(event);this.hightlightBtn(1,1,this.state.array1)}} name="yourAnswer1">{this.state.answer11} </button>
+                                <button className={(this.state.array1[1])?"yourbtn":"mybtn"} value={this.state.answer12} onClick={(event)=>{this.checkAnswer(event);this.hightlightBtn(2,1,this.state.array1)}} name="yourAnswer1">{this.state.answer12}</button>
+                                <button className={(this.state.array1[2])?"yourbtn":"mybtn"} value={this.state.answer13} onClick={(event)=>{this.checkAnswer(event);this.hightlightBtn(3,1,this.state.array1)}} name="yourAnswer1">{this.state.answer13}</button>
+                                <button className={(this.state.array1[3])?"yourbtn":"mybtn"} value={this.state.answer14} onClick={(event)=>{this.checkAnswer(event);this.hightlightBtn(4,1,this.state.array1)}} name="yourAnswer1">{this.state.answer14}</button>
                             </div>
                             <div className="question">
                                 <p>2. {this.state.question2}</p>
-                                <button value={this.state.answer21} onClick={this.checkAnswer} name="yourAnswer2">{this.state.answer21}</button>
-                                <button value={this.state.answer22} onClick={this.checkAnswer} name="yourAnswer2">{this.state.answer22}</button>
-                                <button value={this.state.answer23} onClick={this.checkAnswer} name="yourAnswer2">{this.state.answer23}</button>
-                                <button value={this.state.answer24} onClick={this.checkAnswer} name="yourAnswer2">{this.state.answer24}</button>
+                                <button className={(this.state.array2[0])?"yourbtn":"mybtn"} value={this.state.answer21} onClick={(event)=>{this.checkAnswer(event);this.hightlightBtn(1,2,this.state.array2)}} name="yourAnswer2">{this.state.answer21}</button>
+                                <button className={(this.state.array2[1])?"yourbtn":"mybtn"} value={this.state.answer22} onClick={(event)=>{this.checkAnswer(event);this.hightlightBtn(2,2,this.state.array2)}} name="yourAnswer2">{this.state.answer22}</button>
+                                <button className={(this.state.array2[2])?"yourbtn":"mybtn"} value={this.state.answer23} onClick={(event)=>{this.checkAnswer(event);this.hightlightBtn(3,2,this.state.array2)}} name="yourAnswer2">{this.state.answer23}</button>
+                                <button className={(this.state.array2[3])?"yourbtn":"mybtn"} value={this.state.answer24} onClick={(event)=>{this.checkAnswer(event);this.hightlightBtn(4,2,this.state.array2)}} name="yourAnswer2">{this.state.answer24}</button>
                             </div>
                             <div className="question">
                                 <p>3. {this.state.question3}</p>
-                                <button value={this.state.answer31} onClick={this.checkAnswer} name="yourAnswer3">{this.state.answer31}</button>
-                                <button value={this.state.answer32} onClick={this.checkAnswer} name="yourAnswer3">{this.state.answer32}</button>
-                                <button value={this.state.answer33} onClick={this.checkAnswer} name="yourAnswer3">{this.state.answer33}</button>
-                                <button value={this.state.answer34} onClick={this.checkAnswer} name="yourAnswer3">{this.state.answer34}</button>
+                                <button className={(this.state.array3[0])?"yourbtn":"mybtn"} value={this.state.answer31} onClick={(event)=>{this.checkAnswer(event);this.hightlightBtn(1,3,this.state.array3)}} name="yourAnswer3">{this.state.answer31}</button>
+                                <button className={(this.state.array3[1])?"yourbtn":"mybtn"} value={this.state.answer32} onClick={(event)=>{this.checkAnswer(event);this.hightlightBtn(2,3,this.state.array3)}} name="yourAnswer3">{this.state.answer32}</button>
+                                <button className={(this.state.array3[2])?"yourbtn":"mybtn"} value={this.state.answer33} onClick={(event)=>{this.checkAnswer(event);this.hightlightBtn(3,3,this.state.array3)}} name="yourAnswer3">{this.state.answer33}</button>
+                                <button className={(this.state.array3[3])?"yourbtn":"mybtn"} value={this.state.answer34} onClick={(event)=>{this.checkAnswer(event);this.hightlightBtn(4,3,this.state.array3)}} name="yourAnswer3">{this.state.answer34}</button>
                             </div>
                             <div className="question">
                                 <p>4. {this.state.question4}</p>
-                                <button value={this.state.answer41} onClick={this.checkAnswer} name="yourAnswer4">{this.state.answer41}</button>
-                                <button value={this.state.answer42} onClick={this.checkAnswer} name="yourAnswer4">{this.state.answer42}</button>
-                                <button value={this.state.answer43} onClick={this.checkAnswer} name="yourAnswer4">{this.state.answer43}</button>
-                                <button value={this.state.answer44} onClick={this.checkAnswer} name="yourAnswer4">{this.state.answer44}</button>
+                                <button className={(this.state.array4[0])?"yourbtn":"mybtn"} value={this.state.answer41} onClick={(event)=>{this.checkAnswer(event);this.hightlightBtn(1,4,this.state.array4)}} name="yourAnswer4">{this.state.answer41}</button>
+                                <button className={(this.state.array4[1])?"yourbtn":"mybtn"} value={this.state.answer42} onClick={(event)=>{this.checkAnswer(event);this.hightlightBtn(2,4,this.state.array4)}} name="yourAnswer4">{this.state.answer42}</button>
+                                <button className={(this.state.array4[2])?"yourbtn":"mybtn"} value={this.state.answer43} onClick={(event)=>{this.checkAnswer(event);this.hightlightBtn(3,4,this.state.array4)}} name="yourAnswer4">{this.state.answer43}</button>
+                                <button className={(this.state.array4[3])?"yourbtn":"mybtn"} value={this.state.answer44} onClick={(event)=>{this.checkAnswer(event);this.hightlightBtn(4,4,this.state.array4)}} name="yourAnswer4">{this.state.answer44}</button>
                             </div>
                             <div className="question">
                                 <p>5. {this.state.question5}</p>
-                                <button value={this.state.answer51} onClick={this.checkAnswer} name="yourAnswer5">{this.state.answer51}</button>
-                                <button value={this.state.answer52} onClick={this.checkAnswer} name="yourAnswer5">{this.state.answer52}</button>
-                                <button value={this.state.answer53} onClick={this.checkAnswer} name="yourAnswer5">{this.state.answer53}</button>
-                                <button value={this.state.answer54} onClick={this.checkAnswer} name="yourAnswer5">{this.state.answer54}</button>
+                                <button className={(this.state.array5[0])?"yourbtn":"mybtn"} value={this.state.answer51} onClick={(event)=>{this.checkAnswer(event);this.hightlightBtn(1,5,this.state.array5)}} name="yourAnswer5">{this.state.answer51}</button>
+                                <button className={(this.state.array5[1])?"yourbtn":"mybtn"} value={this.state.answer52} onClick={(event)=>{this.checkAnswer(event);this.hightlightBtn(2,5,this.state.array5)}} name="yourAnswer5">{this.state.answer52}</button>
+                                <button className={(this.state.array5[2])?"yourbtn":"mybtn"} value={this.state.answer53} onClick={(event)=>{this.checkAnswer(event);this.hightlightBtn(3,5,this.state.array5)}} name="yourAnswer5">{this.state.answer53}</button>
+                                <button className={(this.state.array5[3])?"yourbtn":"mybtn"} value={this.state.answer54} onClick={(event)=>{this.checkAnswer(event);this.hightlightBtn(4,5,this.state.array5)}} name="yourAnswer5">{this.state.answer54}</button>
                             </div>
                             <button onClick={this.submitQuiz}>Submit</button>
                         </div>
 
                     </PageCont>
                     ):(this.state.goQuiz === "false" ? (
-
+  
                     <PageCont>
                         {this.state.profile == true ?(
                         <div>
@@ -428,11 +461,11 @@ class Dashboard extends Component {
                                 <div>{this.state.correctXincorrect}</div>
                             </div>
                             <div id="QP">
-                                <div className="strong">Quizzes pass</div>
+                                <div className="strong">Quizzes passed</div>
                                 <div>{this.state.quizzesPass}</div>
                             </div>
                             <div id="QF">
-                                <div className="strong">Quizzes fail</div>
+                                <div className="strong">Quizzes failed</div>
                                 <div>{this.state.quizzesFail}</div>
                             </div>
                         </div>
@@ -476,7 +509,7 @@ class Dashboard extends Component {
                                             <div>{quiz.time}s</div>
                                         </div>
                                     </div>
-                                    
+                                     
                                     ))
                                 ):(
                                     null
