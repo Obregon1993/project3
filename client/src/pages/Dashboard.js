@@ -344,6 +344,8 @@ this.setState({array1:array})
                 onClick={this.runAlert}
                 doingQuiz={this.state.goQuiz}
                 />
+
+{/* <Carousel/>  */}
                 
                 {/*<Nav>
                     <div>SYKYC</div>
@@ -408,7 +410,7 @@ this.setState({array1:array})
 
                     </PageCont>
                     ):(this.state.goQuiz === "false" ? (
-
+  
                     <PageCont>
                         {this.state.profile == true ?(
                         <div>
@@ -432,11 +434,11 @@ this.setState({array1:array})
                                 <div>{this.state.correctXincorrect}</div>
                             </div>
                             <div id="QP">
-                                <div className="strong">Quizzes pass</div>
+                                <div className="strong">Quizzes passed</div>
                                 <div>{this.state.quizzesPass}</div>
                             </div>
                             <div id="QF">
-                                <div className="strong">Quizzes fail</div>
+                                <div className="strong">Quizzes failed</div>
                                 <div>{this.state.quizzesFail}</div>
                             </div>
                         </div>
@@ -466,7 +468,7 @@ this.setState({array1:array})
                                             <div>{quiz.time}s</div>
                                         </div>
                                     </div>
-                                    
+                                     
                                     ))
                                 ):(
                                     null
