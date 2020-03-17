@@ -279,7 +279,10 @@ for (let i = 0; i < array.length; i++) {
     array[i]=false;
     }
 array[number1-1]=true;
-if(number2=1){
+if(number1=20){
+console.log('yes')
+}
+else if(number2=1){
 this.setState({array1:array})
 }else if(number2=2){
     this.setState({array2:array})
