@@ -5,7 +5,7 @@ import API from "../utils/API";
 import PageCont from "../components/PageCont";
 import Select from 'react-select';
 import Sidenav from "../components/SideNavBar"
-
+import './style.css'
 
 
 
@@ -52,6 +52,7 @@ class Dashboard extends Component {
         yourAnswer4: "",
         yourAnswer5: "",
 
+
         displayCorrectQuestion1: "",
         displayCorrectQuestion2: "",
         displayCorrectQuestion3: "",
@@ -91,6 +92,7 @@ class Dashboard extends Component {
         correctXincorrect: "",
         quizzesPass: "",
         quizzesFail: "",
+        quizSave: [],
 
         selectedOption: null,
         peopleFilter: [],
@@ -99,31 +101,38 @@ class Dashboard extends Component {
 
         profile: true,
         quiz: false,
-        social: false
+        social: false,
+
+        
+        array1:[false,false,false,false],
+        array2:[false,false,false,false],
+        array3:[false,false,false,false],
+        array4:[false,false,false,false],
+        array5:[false,false,false,false]
 
     }
 
 
 
     componentDidMount = () => {
-        document.body.style.background = "url('https://lh3.googleusercontent.com/LCoBx4Jsuog7p27jdzh_HJ7bZnbhLdHRY-59iIf9ZguW2uoiYRk_q3rZlpXRuqLrH7dW6rbKQQCPd40w70znd4rx23JzkIxHFvwz3fxFLsZkazFU39st5BXTB5d5ldKtmRgbuRYNS7PdYtmxTGlUyRRPzDfztlD2OFYxo24djnHJ1yNV5hCsNvSLF0E5A6JW2X-1Y0fia1oIRd8kQHr41RS5LANeOjORIWPY8qPeXl1hgc_CssIHJtGimM9qZl_gdH53w_ioTw-anwkhLhPUiRQnr_7eADHwzkvoBTIKAXFq6bSeXzHmQqNfmjNngttMbdXQfIo6J0IK9eoUJLnR7EmkTTkMu7RyBEHkjF0kDJnpdtXSZscCOisUdT7YVHt2U4q334Ev9AcVm4nSngBnPRIIG8cr-APHg1NbPuyCdaAcGoJwWy3cKpZDYRKUw4Vlu_W6Up92gxtj7ZXBdqRGyUSUYwuwMsTwodYjoCYZk16kI6ykLP4Ik3HKxhkwD91Y_l3cK4HNwjRTKXIfrl-4KrB7-tcxARfGEab84BO4l-tfP0CtrWfKoGDjFkicDw-b5r-ku4YA8zEY0QxVaCyUyS_e8seQufsIzXvNIvk6_KLkcX0bbkgQO2MEfpWmqdv6SGNEYmasnkQmSFlmA3I7w98n4CCjxK5MQpavThs5-yIKTBow4ExfkYw=w1280-h853-no')"
+        document.body.style.background = "url('https://scontent-mia3-1.xx.fbcdn.net/v/t1.0-9/89242074_100362221601446_8404418285717684224_o.jpg?_nc_cat=101&_nc_sid=8024bb&_nc_ohc=VJ5X29wlq0AAX-vCE1E&_nc_ht=scontent-mia3-1.xx&oh=42b53918de761852f77508519df5bbc4&oe=5EA38DDE')"
         let jwt = localStorage.getItem('token')
       API.Auth({
         token: jwt
       }).then(res => {
-          console.log(res.data)
           if(res.data !== "notLogin"){
-            //this.setState({tokenValid: true})
+            this.setState({tokenValid: true})
             this.setState({
                 userName: res.data.name,
                 quizTaken: res.data.totalQuizzes,
                 totalPoints: res.data.totalPoints,
                 correctXincorrect: res.data.correctXincorrect,
                 quizzesPass: res.data.quizzesPass,
-                quizzesFail: res.data.quizzesFail
+                quizzesFail: res.data.quizzesFail,
+                quizSave: res.data.quizSave
                 
             })
-
+            console.log(this.state.quizSave)
             if(res.data.bestRecord === 70){
                 this.setState({bestRecord: "Pass a quiz"})
             } else {
@@ -260,11 +269,35 @@ class Dashboard extends Component {
         this.setState({goQuiz: "result"})
     }
     checkAnswer = event => {
-        const { name, value } = event.target;
+        const { name, value} = event.target;
         this.setState({
           [name]: value
-        });
+        });   
     }
+
+    hightlightBtn=(number1,number2,array)=>{
+var array=array;
+for (let i = 0; i < array.length; i++) {
+    array[i]=false;
+    }
+array[number1-1]=true;
+if(number1=20){
+console.log('yes')
+}
+else if(number2=1){
+this.setState({array1:array})
+}else if(number2=2){
+    this.setState({array2:array})
+}else if(number2=3){
+    this.setState({array3:array})
+}else if(number2=4){
+    this.setState({array4:array})
+}else if(number2=5){
+    this.setState({array5:array})
+}
+
+    }
+
     finishQuiz = () => {
         window.location.reload()
     }
@@ -280,9 +313,9 @@ class Dashboard extends Component {
         }).then(res => {
             this.setState({peopleFilter: res.data})
             console.log(this.state.peopleFilter)
+            
         })
     }
-
     
 
     runAlert = value => {
@@ -297,6 +330,31 @@ class Dashboard extends Component {
             this.setState({social: true})
         }
     }
+
+    saveQuiz = event =>{
+        let jwt = localStorage.getItem('token')
+        let quizTosave = event.target.value
+        API.saveQuiz({
+            saveQuiz: quizTosave,
+            token: jwt
+        }).then(res=>{
+            window.location.reload()
+
+        })
+        
+    }
+
+    deleteSaveQuiz = event =>{
+        let jwt = localStorage.getItem('token')
+        let quizTodelete = event.target.value
+        API.deleteQuiz({
+            deleteQuiz: quizTodelete,
+            token: jwt
+        })
+        window.location.reload()
+        
+    }
+
     
 
     render(){
@@ -313,6 +371,8 @@ class Dashboard extends Component {
                 onClick={this.runAlert}
                 doingQuiz={this.state.goQuiz}
                 />
+
+{/* <Carousel/>  */}
                 
                 {/*<Nav>
                     <div>SYKYC</div>
@@ -339,45 +399,45 @@ class Dashboard extends Component {
                             </div>
                             <div className="question">
                                 <p>1. {this.state.question1}</p>
-                                <button value={this.state.answer11} onClick={this.checkAnswer} name="yourAnswer1">{this.state.answer11}</button>
-                                <button value={this.state.answer12} onClick={this.checkAnswer} name="yourAnswer1">{this.state.answer12}</button>
-                                <button value={this.state.answer13} onClick={this.checkAnswer} name="yourAnswer1">{this.state.answer13}</button>
-                                <button value={this.state.answer14} onClick={this.checkAnswer} name="yourAnswer1">{this.state.answer14}</button>
+                                <button className={(this.state.array1[0])?"yourbtn":"mybtn"} value={this.state.answer11} onClick={(event)=>{this.checkAnswer(event);this.hightlightBtn(1,1,this.state.array1)}} name="yourAnswer1">{this.state.answer11} </button>
+                                <button className={(this.state.array1[1])?"yourbtn":"mybtn"} value={this.state.answer12} onClick={(event)=>{this.checkAnswer(event);this.hightlightBtn(2,1,this.state.array1)}} name="yourAnswer1">{this.state.answer12}</button>
+                                <button className={(this.state.array1[2])?"yourbtn":"mybtn"} value={this.state.answer13} onClick={(event)=>{this.checkAnswer(event);this.hightlightBtn(3,1,this.state.array1)}} name="yourAnswer1">{this.state.answer13}</button>
+                                <button className={(this.state.array1[3])?"yourbtn":"mybtn"} value={this.state.answer14} onClick={(event)=>{this.checkAnswer(event);this.hightlightBtn(4,1,this.state.array1)}} name="yourAnswer1">{this.state.answer14}</button>
                             </div>
                             <div className="question">
                                 <p>2. {this.state.question2}</p>
-                                <button value={this.state.answer21} onClick={this.checkAnswer} name="yourAnswer2">{this.state.answer21}</button>
-                                <button value={this.state.answer22} onClick={this.checkAnswer} name="yourAnswer2">{this.state.answer22}</button>
-                                <button value={this.state.answer23} onClick={this.checkAnswer} name="yourAnswer2">{this.state.answer23}</button>
-                                <button value={this.state.answer24} onClick={this.checkAnswer} name="yourAnswer2">{this.state.answer24}</button>
+                                <button className={(this.state.array2[0])?"yourbtn":"mybtn"} value={this.state.answer21} onClick={(event)=>{this.checkAnswer(event);this.hightlightBtn(1,2,this.state.array2)}} name="yourAnswer2">{this.state.answer21}</button>
+                                <button className={(this.state.array2[1])?"yourbtn":"mybtn"} value={this.state.answer22} onClick={(event)=>{this.checkAnswer(event);this.hightlightBtn(2,2,this.state.array2)}} name="yourAnswer2">{this.state.answer22}</button>
+                                <button className={(this.state.array2[2])?"yourbtn":"mybtn"} value={this.state.answer23} onClick={(event)=>{this.checkAnswer(event);this.hightlightBtn(3,2,this.state.array2)}} name="yourAnswer2">{this.state.answer23}</button>
+                                <button className={(this.state.array2[3])?"yourbtn":"mybtn"} value={this.state.answer24} onClick={(event)=>{this.checkAnswer(event);this.hightlightBtn(4,2,this.state.array2)}} name="yourAnswer2">{this.state.answer24}</button>
                             </div>
                             <div className="question">
                                 <p>3. {this.state.question3}</p>
-                                <button value={this.state.answer31} onClick={this.checkAnswer} name="yourAnswer3">{this.state.answer31}</button>
-                                <button value={this.state.answer32} onClick={this.checkAnswer} name="yourAnswer3">{this.state.answer32}</button>
-                                <button value={this.state.answer33} onClick={this.checkAnswer} name="yourAnswer3">{this.state.answer33}</button>
-                                <button value={this.state.answer34} onClick={this.checkAnswer} name="yourAnswer3">{this.state.answer34}</button>
+                                <button className={(this.state.array3[0])?"yourbtn":"mybtn"} value={this.state.answer31} onClick={(event)=>{this.checkAnswer(event);this.hightlightBtn(1,3,this.state.array3)}} name="yourAnswer3">{this.state.answer31}</button>
+                                <button className={(this.state.array3[1])?"yourbtn":"mybtn"} value={this.state.answer32} onClick={(event)=>{this.checkAnswer(event);this.hightlightBtn(2,3,this.state.array3)}} name="yourAnswer3">{this.state.answer32}</button>
+                                <button className={(this.state.array3[2])?"yourbtn":"mybtn"} value={this.state.answer33} onClick={(event)=>{this.checkAnswer(event);this.hightlightBtn(3,3,this.state.array3)}} name="yourAnswer3">{this.state.answer33}</button>
+                                <button className={(this.state.array3[3])?"yourbtn":"mybtn"} value={this.state.answer34} onClick={(event)=>{this.checkAnswer(event);this.hightlightBtn(4,3,this.state.array3)}} name="yourAnswer3">{this.state.answer34}</button>
                             </div>
                             <div className="question">
                                 <p>4. {this.state.question4}</p>
-                                <button value={this.state.answer41} onClick={this.checkAnswer} name="yourAnswer4">{this.state.answer41}</button>
-                                <button value={this.state.answer42} onClick={this.checkAnswer} name="yourAnswer4">{this.state.answer42}</button>
-                                <button value={this.state.answer43} onClick={this.checkAnswer} name="yourAnswer4">{this.state.answer43}</button>
-                                <button value={this.state.answer44} onClick={this.checkAnswer} name="yourAnswer4">{this.state.answer44}</button>
+                                <button className={(this.state.array4[0])?"yourbtn":"mybtn"} value={this.state.answer41} onClick={(event)=>{this.checkAnswer(event);this.hightlightBtn(1,4,this.state.array4)}} name="yourAnswer4">{this.state.answer41}</button>
+                                <button className={(this.state.array4[1])?"yourbtn":"mybtn"} value={this.state.answer42} onClick={(event)=>{this.checkAnswer(event);this.hightlightBtn(2,4,this.state.array4)}} name="yourAnswer4">{this.state.answer42}</button>
+                                <button className={(this.state.array4[2])?"yourbtn":"mybtn"} value={this.state.answer43} onClick={(event)=>{this.checkAnswer(event);this.hightlightBtn(3,4,this.state.array4)}} name="yourAnswer4">{this.state.answer43}</button>
+                                <button className={(this.state.array4[3])?"yourbtn":"mybtn"} value={this.state.answer44} onClick={(event)=>{this.checkAnswer(event);this.hightlightBtn(4,4,this.state.array4)}} name="yourAnswer4">{this.state.answer44}</button>
                             </div>
                             <div className="question">
                                 <p>5. {this.state.question5}</p>
-                                <button value={this.state.answer51} onClick={this.checkAnswer} name="yourAnswer5">{this.state.answer51}</button>
-                                <button value={this.state.answer52} onClick={this.checkAnswer} name="yourAnswer5">{this.state.answer52}</button>
-                                <button value={this.state.answer53} onClick={this.checkAnswer} name="yourAnswer5">{this.state.answer53}</button>
-                                <button value={this.state.answer54} onClick={this.checkAnswer} name="yourAnswer5">{this.state.answer54}</button>
+                                <button className={(this.state.array5[0])?"yourbtn":"mybtn"} value={this.state.answer51} onClick={(event)=>{this.checkAnswer(event);this.hightlightBtn(1,5,this.state.array5)}} name="yourAnswer5">{this.state.answer51}</button>
+                                <button className={(this.state.array5[1])?"yourbtn":"mybtn"} value={this.state.answer52} onClick={(event)=>{this.checkAnswer(event);this.hightlightBtn(2,5,this.state.array5)}} name="yourAnswer5">{this.state.answer52}</button>
+                                <button className={(this.state.array5[2])?"yourbtn":"mybtn"} value={this.state.answer53} onClick={(event)=>{this.checkAnswer(event);this.hightlightBtn(3,5,this.state.array5)}} name="yourAnswer5">{this.state.answer53}</button>
+                                <button className={(this.state.array5[3])?"yourbtn":"mybtn"} value={this.state.answer54} onClick={(event)=>{this.checkAnswer(event);this.hightlightBtn(4,5,this.state.array5)}} name="yourAnswer5">{this.state.answer54}</button>
                             </div>
                             <button onClick={this.submitQuiz}>Submit</button>
                         </div>
 
                     </PageCont>
                     ):(this.state.goQuiz === "false" ? (
-
+  
                     <PageCont>
                         {this.state.profile == true ?(
                         <div>
@@ -401,13 +461,27 @@ class Dashboard extends Component {
                                 <div>{this.state.correctXincorrect}</div>
                             </div>
                             <div id="QP">
-                                <div className="strong">Quizzes pass</div>
+                                <div className="strong">Quizzes passed</div>
                                 <div>{this.state.quizzesPass}</div>
                             </div>
                             <div id="QF">
-                                <div className="strong">Quizzes fail</div>
+                                <div className="strong">Quizzes failed</div>
                                 <div>{this.state.quizzesFail}</div>
                             </div>
+                        </div>
+                        
+                        <div id="yourQuizzes">
+                            <h5>Your Quizzes</h5>
+                            {this.state.quizSave.length ?(
+                            this.state.quizSave.map(quizsave =>(
+                                <div>
+                                    <button value={quizsave} onClick={this.selectQuiz}>{quizsave}</button>
+                                    <button value={quizsave} style={{padding: "5px"}} onClick={this.deleteSaveQuiz}>delete</button>
+                                </div>
+                            ))
+                            ):(
+                                <div id="nosave">No quizzes saved</div>
+                            )}
                         </div>
                         <div>
                             <h5>History</h5>
@@ -418,23 +492,24 @@ class Dashboard extends Component {
                                         
                                     <div key={quiz._id} className="myHistory">
                                         <div class="dateHis">{quiz.date}</div>
-                                        <div>
+                                        <div class="len">
+                                            <div className="strong">Language</div>
                                             <div>{quiz.title}</div>
                                         </div>
                                         <div>
-                                            <div>Correct answers</div>
+                                            <div className="strong">Correct answers</div>
                                             <div>{quiz.correctAnswers}</div>
                                         </div>
                                         <div>
-                                            <div>Incorrect answers</div>
+                                            <div className="strong">Incorrect answers</div>
                                             <div>{quiz.incorrectAnswers}</div>
                                         </div>
                                         <div>
-                                            <div>Time</div>
+                                            <div className="strong">Time</div>
                                             <div>{quiz.time}s</div>
                                         </div>
                                     </div>
-                                    
+                                     
                                     ))
                                 ):(
                                     null
@@ -445,10 +520,26 @@ class Dashboard extends Component {
                         ):this.state.quiz == true ? (
                         <div id="quiz" className="quizWrapper">
                             <h3>Quiz</h3>
-                            <button onClick={this.selectQuiz} value="javascript">Javascript</button>
-                            <button onClick={this.selectQuiz} value="python">Python</button>
-                            <button onClick={this.selectQuiz} value="c++">C++</button>
-                            <button onClick={this.selectQuiz} value="ruby">Ruby</button>
+                            <div>
+                                <img class="lenImg" src="https://html5hive.org/wp-content/uploads/2014/06/js_800x800.jpg"/>
+                                <button class="goQuiz" onClick={this.selectQuiz} value="javascript">Javascript</button>
+                                <button id="quizToaddJv" onClick={this.saveQuiz} value="javascript">save</button>
+                            </div>
+                            <div>
+                                <img class="lenImg" src="https://nathsir-bucket.s3.amazonaws.com/media/py.png"/>
+                                <button onClick={this.selectQuiz} value="python">Python</button>
+                                <button id="quizToaddPh" onClick={this.saveQuiz} value="python">save</button>
+                            </div>
+                            <div>
+                                <img class="lenImg" src="https://i.redd.it/31b2ii8hchi31.jpg"/>
+                                <button onClick={this.selectQuiz} value="c++">C++</button>
+                                <button id="quizToaddCp" onClick={this.saveQuiz} value="c++">save</button>
+                            </div>
+                            <div class="nextLine">
+                                <img class="lenImg" src="https://p7.hiclipart.com/preview/405/943/719/5bfc694a2d422.jpg"/>
+                                <button onClick={this.selectQuiz} value="ruby">Ruby</button>
+                                <button id="quizToaddRb" onClick={this.saveQuiz} value="ruby">save</button>
+                            </div>
                         </div>
                         ):this.state.social == true ? (
                         <div id="social" className="socialWrapper">
@@ -496,43 +587,84 @@ class Dashboard extends Component {
                         <PageCont>
                             <div className="resultsCont">
                                 <div className="contForRes">
+                                    {this.state.displayCorrectAnswer1 ?(
+                                    <div>
                                     <p style={{color: "green"}}>{this.state.displayCorrectQuestion1}</p>
-                                    <p style={{textDecoration: "underline", textDecorationColor: "green"}}>{this.state.displayCorrectAnswer1}</p>
-                                    
+                                    <p style={{border: "1px solid #bebebe",padding: "10px",borderRadius: "10px",background: "#f5f5f5",color: "green",fontWeight: "bold"}}>{this.state.displayCorrectAnswer1}</p>
+                                    </div>
+                                    ):(null)}
+
+                                    {this.state.displayCorrectAnswer2 ?(
+                                    <div>
                                     <p style={{color: "green"}}>{this.state.displayCorrectQuestion2}</p>
-                                    <p style={{textDecoration: "underline", textDecorationColor: "green"}}>{this.state.displayCorrectAnswer2}</p>
-                                    
+                                    <p style={{border: "1px solid #bebebe",padding: "10px",borderRadius: "10px",background: "#f5f5f5",color: "green",fontWeight: "bold"}}>{this.state.displayCorrectAnswer2}</p>
+                                    </div>
+                                    ):(null)}
+
+                                    {this.state.displayCorrectAnswer3 ?(
+                                    <div>
                                     <p style={{color: "green"}}>{this.state.displayCorrectQuestion3}</p>
-                                    <p style={{textDecoration: "underline", textDecorationColor: "green"}}>{this.state.displayCorrectAnswer3}</p>
-                                    
+                                    <p style={{border: "1px solid #bebebe",padding: "10px",borderRadius: "10px",background: "#f5f5f5",color: "green",fontWeight: "bold"}}>{this.state.displayCorrectAnswer3}</p>
+                                    </div>
+                                    ):(null)}
+
+                                    {this.state.displayCorrectAnswer4 ?(
+                                    <div>
                                     <p style={{color: "green"}}>{this.state.displayCorrectQuestion4}</p>
-                                    <p style={{textDecoration: "underline", textDecorationColor: "green"}}>{this.state.displayCorrectAnswer4}</p>
-                                    
+                                    <p style={{border: "1px solid #bebebe",padding: "10px",borderRadius: "10px",background: "#f5f5f5",color: "green",fontWeight: "bold"}}>{this.state.displayCorrectAnswer4}</p>
+                                    </div>
+                                    ):(null)}
+
+                                    {this.state.displayCorrectAnswer5 ?(
+                                    <div>
                                     <p style={{color: "green"}}>{this.state.displayCorrectQuestion5}</p>
-                                    <p style={{textDecoration: "underline", textDecorationColor: "green"}}>{this.state.displayCorrectAnswer5}</p>
+                                    <p style={{border: "1px solid #bebebe",padding: "10px",borderRadius: "10px",background: "#f5f5f5",color: "green",fontWeight: "bold"}}>{this.state.displayCorrectAnswer5}</p>
+                                    </div>
+                                    ):(null)}
                                 </div>
                                 <div className="contForRes">
+
+                                    {this.state.displayIncorrectAnswer1 ?(
+                                    <div>
                                     <p style={{color: "red"}}>{this.state.displayIncorrectQuestion1}</p>
-                                    <p style={{textDecoration: "underline", textDecorationColor: "red"}}>{this.state.displayIncorrectAnswer1}</p>
-                                    <p style={{textDecoration: "underline", textDecorationColor: "green"}}>{this.state.displayCorrectData1}</p>
-                                    
+                                    <p style={{border: "1px solid #bebebe",padding: "10px",borderRadius: "10px",background: "#f5f5f5",color: "red",fontWeight: "bold"}}>{this.state.displayIncorrectAnswer1}</p>
+                                    <p style={{textDecoration: "underline", textDecorationColor: "green"}}>Correct answer: {this.state.displayCorrectData1}</p>
+                                    </div>
+                                    ):(null)}
+
+                                    {this.state.displayIncorrectAnswer2 ?(
+                                    <div>
                                     <p style={{color: "red"}}>{this.state.displayIncorrectQuestion2}</p>
-                                    <p style={{textDecoration: "underline", textDecorationColor: "red"}}>{this.state.displayIncorrectAnswer2}</p>
-                                    <p style={{textDecoration: "underline", textDecorationColor: "green"}}>{this.state.displayCorrectData2}</p>
-                                    
+                                    <p style={{border: "1px solid #bebebe",padding: "10px",borderRadius: "10px",background: "#f5f5f5",color: "red",fontWeight: "bold"}}>{this.state.displayIncorrectAnswer2}</p>
+                                    <p style={{textDecoration: "underline", textDecorationColor: "green"}}>Correct answer: {this.state.displayCorrectData2}</p>
+                                    </div>
+                                    ):(null)}
+
+                                    {this.state.displayIncorrectAnswer3 ?(
+                                    <div>
                                     <p style={{color: "red"}}>{this.state.displayIncorrectQuestion3}</p>
-                                    <p style={{textDecoration: "underline", textDecorationColor: "red"}}>{this.state.displayIncorrectAnswer3}</p>
-                                    <p style={{textDecoration: "underline", textDecorationColor: "green"}}>{this.state.displayCorrectData3}</p>
-                                    
+                                    <p style={{border: "1px solid #bebebe",padding: "10px",borderRadius: "10px",background: "#f5f5f5",color: "red",fontWeight: "bold"}}>{this.state.displayIncorrectAnswer3}</p>
+                                    <p style={{textDecoration: "underline", textDecorationColor: "green"}}>Correct answer: {this.state.displayCorrectData3}</p>
+                                    </div>
+                                    ):(null)}
+
+                                    {this.state.displayIncorrectAnswer4 ?(
+                                    <div>
                                     <p style={{color: "red"}}>{this.state.displayIncorrectQuestion4}</p>
-                                    <p style={{textDecoration: "underline", textDecorationColor: "red"}}>{this.state.displayIncorrectAnswer4}</p>
-                                    <p style={{textDecoration: "underline", textDecorationColor: "green"}}>{this.state.displayCorrectData4}</p>
-                                    
+                                    <p style={{border: "1px solid #bebebe",padding: "10px",borderRadius: "10px",background: "#f5f5f5",color: "red",fontWeight: "bold"}}>{this.state.displayIncorrectAnswer4}</p>
+                                    <p style={{textDecoration: "underline", textDecorationColor: "green"}}>Correct answer: {this.state.displayCorrectData4}</p>
+                                    </div>
+                                    ):(null)}
+
+                                    {this.state.displayIncorrectAnswer5 ?(
+                                    <div>
                                     <p style={{color: "red"}}>{this.state.displayIncorrectQuestion5}</p>
-                                    <p style={{textDecoration: "underline", textDecorationColor: "red"}}>{this.state.displayIncorrectAnswer5}</p>
-                                    <p style={{textDecoration: "underline", textDecorationColor: "green"}}>{this.state.displayCorrectData5}</p>
+                                    <p style={{border: "1px solid #bebebe",padding: "10px",borderRadius: "10px",background: "#f5f5f5",color: "red",fontWeight: "bold"}}>{this.state.displayIncorrectAnswer5}</p>
+                                    <p style={{textDecoration: "underline", textDecorationColor: "green"}}>Correct answer: {this.state.displayCorrectData5}</p>
+                                    </div>
+                                    ):(null)}
                                 </div>
-                                <button onClick={this.finishQuiz}>Finish</button>
+                                <button onClick={this.finishQuiz} id="finishQuiz">Finish</button>
                             </div>
                         </PageCont>
                     ))}

@@ -13,6 +13,10 @@ var userSchema = new Schema({
     type: String,
     required: true
   },
+  email: {
+    type: String,
+    require: true
+  },
   totalQuizzes: {
     type: Number,
     require: true
@@ -36,7 +40,8 @@ var userSchema = new Schema({
   correctXincorrect: {
     type: Number,
     require: true
-  }
+  },
+  quizSave: [String]
 });
 
 

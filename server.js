@@ -1,9 +1,12 @@
 require('dotenv').config()
 
+const morgan = require('morgan');
 const express = require("express");
 const bcrypt = require("bcrypt")
 const mongoose = require("mongoose");
 const jwt = require("jsonwebtoken")
+const nodemailer=require('nodemailer')
+
 
 var db = require("./models");
 
@@ -35,7 +38,7 @@ app.post("/api/users/add", async (req, res) => {
     if(!dbUser){
       try {
         const hashedPassword = await bcrypt.hash(req.body.tete, 10)
-        const user = { name: req.body.name, password: hashedPassword, totalQuizzes: 0, totalPoints: 0, bestRecord: 70, quizzesPass: 0, quizzesFail: 0, correctXincorrect: 0}
+        const user = { name: req.body.name, email: req.body.email ,password: hashedPassword, totalQuizzes: 0, totalPoints: 0, bestRecord: 70, quizzesPass: 0, quizzesFail: 0, correctXincorrect: 0, quizSave: []}
         db.User.create(user)
         res.status(201).send("Account created successfully")
       } catch {
@@ -179,7 +182,7 @@ app.post("/check/quiz", authenticateToke, (req, res)=>{
       
         
       ).then(function(dbUser){
-        console.log(dbUser)
+        //console.log(dbUser)
       })
     }
     if(passOrFail === "fail"){
@@ -189,7 +192,7 @@ app.post("/check/quiz", authenticateToke, (req, res)=>{
       
         
       ).then(function(dbUser){
-        console.log(dbUser)
+        //console.log(dbUser)
       })
     }
   
@@ -200,7 +203,7 @@ app.post("/check/quiz", authenticateToke, (req, res)=>{
   
     
   ).then(function(dbUser){
-    console.log(yourTime)
+    //console.log(yourTime)
     if(yourTime < dbUser.bestRecord){
       updateTime()
     } else {
@@ -291,6 +294,47 @@ app.post("/user/history", authenticateToke, (req, res)=>{
   })
 })
 
+app.get("/api/table",(req,res)=>{
+  db.User.find({}).limit(5).sort({totalPoints:-1})
+  .then((data)=>{
+      console.log('Data: plz send', data);
+      res.json(data);
+  })
+    .catch((error)=>{
+        console.log('error', error);
+    }) 
+})
+
+app.post("/savequiz",authenticateToke,(req,res)=>{
+  let tosave = false
+  db.User.findOne({
+    name: req.user.name
+  }).then(function(dbUser){
+    for(let i=0; i<dbUser.quizSave.length; i++){
+      if(dbUser.quizSave[i] === req.body.saveQuiz){
+        tosave = true
+      }
+    }
+    if(tosave === false){
+      dbUser.quizSave.push(req.body.saveQuiz)
+      dbUser.save()
+    }
+    res.send(dbUser.quizSave)
+        
+  })
+})
+app.post("/deletequiz",authenticateToke,(req,res)=>{
+  db.User.findOne({
+    name: req.user.name
+  }).then(function(dbUser){
+    for(let i=0; i<dbUser.quizSave.length; i++){
+      if(dbUser.quizSave[i] === req.body.deleteQuiz){
+        dbUser.quizSave.splice(i, 1)
+        dbUser.save()
+      }
+    }
+  })
+})
 
 
 
@@ -322,12 +366,39 @@ let cplus = require("./scripts/C++DB")
 let Ruby = require("./scripts/RubyDB")
 
 function SaveToMongo(){
-  db.QsJavascript.insertMany(javascript)
-  db.QsPython.insertMany(Python)
-  db.QsCplus.insertMany(cplus)
-  db.QsRuby.insertMany(Ruby)
+  //db.QsJavascript.insertMany(javascript)
+  //db.QsPython.insertMany(Python)
+  //db.QsCplus.insertMany(cplus)
+  //db.QsRuby.insertMany(Ruby)
 }
 
+app.post("/user/wellcome",  (req, res)=>{
+  console.log(req.body)
+    email(req.body.thisEmail,req.body.thisName)
+})
+
+email=(email,name)=>{
+  let transporter=nodemailer.createTransport({
+    service: 'gmail',
+    auth:{
+        user:process.env.EMAIL,
+        pass:process.env.PASSWORD
+    }
+});
+let mailOptions={
+  from:'sykycapp@gmail.com',
+  to: email,//in case wanna add more users just , adn de new email(everithing inside quotes)
+  //cc:''  this is in case u wanan add cc to ur email
+  //bcc:''  same than cc
+  subject:'Welcoem email',
+  text: "Wellcome to Sykyc "+name+", we hope your enjoy and learn a lot with this app!!!!"
+  
+};
+transporter.sendMail(mailOptions, (err,data)=>{
+  (err)?console.log('error ocurrs',err):console.log('email sent');
+})
+
+}
 
 
 

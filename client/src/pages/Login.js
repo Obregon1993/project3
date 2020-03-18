@@ -58,7 +58,73 @@ class Login extends Component {
             return <Redirect to='/dashboard'/>
         } else if (this.state.tokenValid === false) {
             return(
-                <div className="logWrapper">
+                
+                <div className="container" id="loginContainer" style={{background:"white", fontSize: '15px'}}>
+                <Link to="/">Main</Link>
+                
+            <div className="row">
+                <div className="col m6">
+                    <h2 className="center-align">Login</h2>
+                    <h5>{this.state.validMsg}</h5>
+                    <div className="row">
+                        <form className="col s12">
+
+                        <div className="row">
+                                <div className="input-field col s12">
+                    
+                                    <Input
+                                    value={this.state.nameLog}
+                                    onChange={this.handleInputChange}
+                                    name="nameLog"
+                                    type="text"
+                                    placeholder="username"
+                                    />
+                                    
+                                
+                                </div>
+                            </div>
+
+                            
+                            <div className="row">
+                                <div className="input-field col s12">
+                                                    <Input
+                                        value={this.state.passwordLog}
+                                        onChange={this.handleInputChange}
+                                        name="passwordLog"
+                                        type="password"
+                                        placeholder="password"
+                                        />
+                                    
+                                </div>
+                            </div>
+                            
+                            <div className="divider"></div>
+                            
+                            <div className="row">
+                                <div className="col m12">
+                                    <p className="right-align">
+                                    <Link to="/register" style={{marginRight: "30px"}}>Register</Link>
+                                        <button className="btn btn-large waves-effect waves-light" type="button" name="action" onClick={this.handleFormLogin}>Login</button>
+                                    </p>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            </div>
+            )
+        } else {
+            return null
+        }
+        
+    }
+
+}
+
+export default Login;
+
+{/* <div className="logWrapper">
                 <form>
                 
                 
@@ -86,15 +152,4 @@ class Login extends Component {
                     <Link to="/">Go Back</Link>
                 
                 </form>
-                </div>
-                
-            )
-        } else {
-            return null
-        }
-        
-    }
-
-}
-
-export default Login;
+            </div>*/}
