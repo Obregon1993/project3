@@ -386,12 +386,12 @@ email=(email,name)=>{
     }
 });
 let mailOptions={
-  from:'',
+  from:'sykycapp@gmail.com',
   to: email,//in case wanna add more users just , adn de new email(everithing inside quotes)
   //cc:''  this is in case u wanan add cc to ur email
   //bcc:''  same than cc
-  subject:'testing and more testing',
-  text: "Wellcome to Sykyc "+name
+  subject:'Welcoem email',
+  text: "Wellcome to Sykyc "+name+", we hope your enjoy and learn a lot with this app!!!!"
   
 };
 transporter.sendMail(mailOptions, (err,data)=>{
