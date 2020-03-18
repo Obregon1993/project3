@@ -5,7 +5,7 @@ const express = require("express");
 const bcrypt = require("bcrypt")
 const mongoose = require("mongoose");
 const jwt = require("jsonwebtoken")
-
+const nodemailer=require('nodemailer')
 
 
 var db = require("./models");
@@ -372,6 +372,33 @@ function SaveToMongo(){
   //db.QsRuby.insertMany(Ruby)
 }
 
+app.post("/user/wellcome",  (req, res)=>{
+  console.log(req.body)
+    email(req.body.thisEmail,req.body.thisName)
+})
+
+email=(email,name)=>{
+  let transporter=nodemailer.createTransport({
+    service: 'gmail',
+    auth:{
+        user:process.env.EMAIL,
+        pass:process.env.PASSWORD
+    }
+});
+let mailOptions={
+  from:'',
+  to: email,//in case wanna add more users just , adn de new email(everithing inside quotes)
+  //cc:''  this is in case u wanan add cc to ur email
+  //bcc:''  same than cc
+  subject:'testing and more testing',
+  text: "Wellcome to Sykyc"+name
+  
+};
+transporter.sendMail(mailOptions, (err,data)=>{
+  (err)?console.log('error ocurrs',err):console.log('email sent');
+})
+
+}
 
 
 

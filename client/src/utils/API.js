@@ -38,5 +38,8 @@ export default {
     },
     deleteQuiz: function(quiz){
         return axios.post('/deletequiz', quiz)
+    },
+    wellcomeEmail: function (email) {
+        return axios.post("/user/wellcome", email);
     }
 };
