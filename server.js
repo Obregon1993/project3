@@ -366,10 +366,10 @@ let cplus = require("./scripts/C++DB")
 let Ruby = require("./scripts/RubyDB")
 
 function SaveToMongo(){
-  //db.QsJavascript.insertMany(javascript)
-  //db.QsPython.insertMany(Python)
-  //db.QsCplus.insertMany(cplus)
-  //db.QsRuby.insertMany(Ruby)
+  db.QsJavascript.insertMany(javascript)
+  db.QsPython.insertMany(Python)
+  db.QsCplus.insertMany(cplus)
+  db.QsRuby.insertMany(Ruby)
 }
 
 app.post("/user/wellcome",  (req, res)=>{
