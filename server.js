@@ -391,7 +391,7 @@ let mailOptions={
   //cc:''  this is in case u wanan add cc to ur email
   //bcc:''  same than cc
   subject:'testing and more testing',
-  text: "Wellcome to Sykyc"+name
+  text: "Wellcome to Sykyc "+name
   
 };
 transporter.sendMail(mailOptions, (err,data)=>{
