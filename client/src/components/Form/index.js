@@ -1,4 +1,8 @@
 import React from "react";
+<<<<<<< HEAD
+=======
+import "./style.css"
+>>>>>>> camilo
 
 export function Input(props) {
     return (

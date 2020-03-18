@@ -12,9 +12,12 @@ footer {
         padding-left: 0;
     }
 }
+<<<<<<< HEAD
 .brand-logo{
     margin-left: 30px;
 }
+=======
+>>>>>>> camilo
 .background{
     width: 324px;
     height: 243;
@@ -37,4 +40,11 @@ a{
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
     font-weight: bolder;
     text-decoration-line: none;
+<<<<<<< HEAD
+=======
+}
+
+#username {
+    padding-bottom: 10px;
+>>>>>>> camilo
 }

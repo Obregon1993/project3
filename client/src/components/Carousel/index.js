@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
 import ItemsCarousel from 'react-items-carousel';
+<<<<<<< HEAD
 import html_quiz from "../ParallaxTemp/assets/html_quiz.png";
+=======
+import html_quiz from "../Images/html_quiz.png";
+>>>>>>> camilo
 
 export default () => {
     const [activeItemIndex, setActiveItemIndex] = useState(0);
